@@ -1,9 +1,22 @@
 group 'pl.itgolo'
 version '1.0.0'
 
-apply plugin: 'java'
+// define for title of application
+def title = 'ITGolo CarService'
 
-sourceCompatibility = 1.5
+apply plugin: 'java'
+sourceCompatibility = 1.8
+
+// Selected files from java will be copied to the folder resources.
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/java", "src/main/resources"]
+            includes = ["**/*.fxml","**/*.xml", "**/*.properties", "**/*.css",
+                        "**/*.png", "**/*.gif", "**/*.jpg"]
+        }
+    }
+}
 
 repositories {
     mavenCentral()
@@ -11,4 +24,27 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+/*
+The application name and version of the application is declared once.
+These data are collected by the application through
+application.properties file, which is transferred
+to the folder resources by setting sourceSets.
+*/
+File propsFile = new File("$project.rootDir/src/main/java/Application/Resources/Properties/application.properties")
+Properties props = new Properties()
+props.setProperty("version",version)
+props.setProperty("title",title)
+props.store(propsFile.newWriter(), null)
+
+// Settings for the creation of the output file jar.
+jar {
+    manifest {
+        attributes 'Implementation-Title': title,
+                'Implementation-Version': version,
+                "Main-Class": "Program"
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
