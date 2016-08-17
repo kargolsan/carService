@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.AddRepairController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Label text="Note:" />
+            <TextArea fx:id="note" prefHeight="200.0" prefWidth="200.0" />
+            <Button mnemonicParsing="false" onAction="#add" text="Add" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

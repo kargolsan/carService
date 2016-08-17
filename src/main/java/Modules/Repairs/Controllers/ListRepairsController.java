@@ -27,7 +27,7 @@ import javafx.util.Callback;
  * Date: 17.08.2016
  * Time: 15:43
  */
-public class ListRepairsTabController implements Initializable {
+public class ListRepairsController implements Initializable {
 
     @FXML
     private TableView<Repair> tableRepairs;
@@ -56,13 +56,10 @@ public class ListRepairsTabController implements Initializable {
     /**
      * Constructor
      */
-    public ListRepairsTabController()
+    public ListRepairsController()
     {
         repairs = FXCollections.observableArrayList();
-
-        RepairRepository.getAll().forEach(repair->{
-            repairs.add(repair);
-        });
+        repairs.addAll(RepairRepository.getAll());
     }
 
     /**
@@ -82,6 +79,12 @@ public class ListRepairsTabController implements Initializable {
         createdAt.setCellValueFactory(new CellValueFactoryService().propertyCreatedAtFactory());
         updatedAt.setCellValueFactory(new PropertyValueFactory("updatedAt"));
         tableRepairs.setItems(repairs);
+    }
+
+    @FXML
+    public void refresh(){
+        repairs.clear();
+        repairs.addAll(RepairRepository.getAll());
     }
 
 

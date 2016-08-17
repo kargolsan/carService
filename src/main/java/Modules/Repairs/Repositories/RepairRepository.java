@@ -1,14 +1,12 @@
 package Modules.Repairs.Repositories;
 
-import Database.Services.SessionService;
-import Modules.Repairs.Models.Repair;
+import java.util.List;
+import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import Modules.Repairs.Models.Repair;
+import Database.Services.SessionService;
 
 /**
  * Created by IntelliJ IDEA.

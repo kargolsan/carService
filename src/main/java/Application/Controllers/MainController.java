@@ -1,14 +1,12 @@
 package Application.Controllers;
 
-import Application.Stages.Main;
-import Modules.Cars.CarsServiceProvider;
-import Modules.Repairs.RepairsServiceProvider;
+import java.net.URL;
 import javafx.fxml.FXML;
+import Application.Stages.Main;
+import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import Application.Services.TabsService;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,6 +18,13 @@ public class MainController implements Initializable {
 
     @FXML
     private TabPane tabPane;
+
+    /**
+     * Controller
+     */
+    public MainController(){
+
+    }
 
     /**
      * Launch main stage
@@ -38,7 +43,9 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        RepairsServiceProvider.launch(tabPane);
-        CarsServiceProvider.launch(tabPane);
+        TabsService.setTabPane(tabPane);
+        TabsService.addTab("/Modules/Cars/Resources/Views/Tabs/ListCarsView.fxml");
+        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/ListRepairsView.fxml");
+        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/AddRepairView.fxml");
     }
 }

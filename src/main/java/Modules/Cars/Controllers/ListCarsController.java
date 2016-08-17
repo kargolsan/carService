@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
  * Date: 17.08.2016
  * Time: 15:43
  */
-public class ListCarsTabController implements Initializable {
+public class ListCarsController implements Initializable {
 
     @FXML
     private TableView<Car> tableCars;
@@ -49,7 +49,7 @@ public class ListCarsTabController implements Initializable {
     /**
      * Constructor
      */
-    public ListCarsTabController()
+    public ListCarsController()
     {
         cars = FXCollections.observableArrayList();
         cars.addAll(CarRepository.getAll());
