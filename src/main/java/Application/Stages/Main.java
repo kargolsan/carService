@@ -1,10 +1,10 @@
 package Application.Stages;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.VBox;
+import javafx.application.Application;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,6 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    /** Path to view of main stage */
     private static final String VIEW = "/Application/Resources/Views/MainView.fxml";
 
     /**
