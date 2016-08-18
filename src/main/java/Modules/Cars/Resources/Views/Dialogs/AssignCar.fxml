@@ -12,6 +12,7 @@
                 <TableView id="tableCars" fx:id="tableCars" focusTraversable="false" prefHeight="262.0" prefWidth="443.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                         <TableColumn id="id" fx:id="id" editable="false" maxWidth="50.0" prefWidth="30.0" text="Id" />
+                        <TableColumn id="vin" fx:id="vin" editable="false" prefWidth="110.0" text="Vin" />
                         <TableColumn id="note" fx:id="note" editable="false" prefWidth="110.0" text="Note" />
                         <TableColumn id="registrationNumber" fx:id="registrationNumber" editable="false" prefWidth="110.0" text="Registration number" />
                         <TableColumn id="createdAt" fx:id="createdAt" editable="false" prefWidth="110.0" text="Created at" />

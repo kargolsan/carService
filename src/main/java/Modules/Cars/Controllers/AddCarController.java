@@ -1,18 +1,19 @@
-package Modules.Repairs.Controllers;
+package Modules.Cars.Controllers;
 
 import Modules.Cars.Models.Car;
+import Modules.Cars.Repositories.CarRepository;
+import Modules.Cars.Stages.AssignCar;
 import Modules.Repairs.Models.Repair;
 import Modules.Repairs.Repositories.RepairRepository;
-import Modules.Cars.Stages.AssignCar;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 
@@ -22,30 +23,24 @@ import java.util.ResourceBundle;
  * Date: 17.08.2016
  * Time: 15:43
  */
-public class AddRepairController implements Initializable {
+public class AddCarController implements Initializable {
 
     @FXML
     private AnchorPane root;
 
     @FXML
-    private DatePicker dateStart;
+    private TextField registrationNumber;
 
     @FXML
-    private DatePicker dateEnd;
+    private TextField vin;
 
     @FXML
     private TextArea note;
 
-    @FXML
-    private Label infoAssignCar;
-
-    /** Assign car to repair */
-    private Car assignCar;
-
     /**
      * Constructor
      */
-    public AddRepairController()
+    public AddCarController()
     {
 
     }
@@ -68,20 +63,11 @@ public class AddRepairController implements Initializable {
      */
     @FXML
     public void add(){
-        Repair repair = new Repair();
-        LocalDate dateStartValue = dateStart.getValue();
-        LocalDate dateEndValue = dateStart.getValue();
-        if (dateStartValue != null){
-            repair.setDateStart(Date.valueOf(dateStartValue));
-        }
-        if (dateEndValue != null){
-            repair.setDateEnd(Date.valueOf(dateEndValue));
-        }
-        if (assignCar != null){
-            repair.setCarId(assignCar.getId());
-        }
-        repair.setNote(note.getText());
-        RepairRepository.add(repair);
+        Car car = new Car();
+        car.setRegistrationNumber(registrationNumber.getText());
+        car.setVin(vin.getText());
+        car.setNote(note.getText());
+        CarRepository.add(car);
         clear();
     }
 
@@ -90,21 +76,8 @@ public class AddRepairController implements Initializable {
      */
     @FXML
     public void clear(){
-        dateStart.setValue(null);
-        dateEnd.setValue(null);
+        registrationNumber.setText("");
+        vin.setText("");
         note.clear();
     }
-
-    /**
-     * Assign car to repair
-     */
-    @FXML
-    public void assignCar(){
-        assignCar = AssignCar.showDialog();
-        if (assignCar != null){
-            infoAssignCar.setText(String.format("%1$s", assignCar.getRegistrationNumber()));
-        }
-    }
-
-
 }

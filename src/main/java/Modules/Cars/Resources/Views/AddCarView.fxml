@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Cars.Controllers.AddCarController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <VBox prefWidth="150.0">
+                           <children>
+                              <Label text="Registration number:" />
+                              <TextField fx:id="registrationNumber" />
+                           </children>
+                        </VBox>
+                        <VBox prefWidth="100.0">
+                           <children>
+                              <Label text="Vin:" />
+                              <TextField fx:id="vin" />
+                           </children>
+                        </VBox>
+                        <VBox prefWidth="100.0">
+                           <children>
+                              <Label text="Note:" />
+                              <TextArea fx:id="note" prefHeight="56.0" prefWidth="137.0" />
+                           </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#add" text="Add" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -28,11 +28,14 @@ public class Car {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NOTE", length = 4000)
-    private String note;
-
     @Column(name = "REGISTRATION_NUMBER", length = 20)
     private String registrationNumber;
+
+    @Column(name = "VIN", length = 30)
+    private String vin;
+
+    @Column(name = "NOTE", length = 4000)
+    private String note;
 
     @Column(name = "CREATED_AT")
     @Type(type="timestamp")
@@ -48,6 +51,15 @@ public class Car {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
     }
 
     public String getNote() {

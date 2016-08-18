@@ -2,6 +2,8 @@ package Modules.Repairs.Repositories;
 
 import java.util.List;
 import java.util.Date;
+
+import Modules.Cars.Models.Car;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -128,5 +130,33 @@ public class RepairRepository {
         }
         session.close();
         return result;
+    }
+
+    /**
+     * Check that the vehicle can be removed
+     *
+     * @param id of car in database
+     * @return true if can, false if can't
+     */
+    public static Repair carCanDelete(Long id) {
+
+        Repair repair = null;
+        Session session = SessionService.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("from Repair where CAR_ID=:CAR_ID");
+            query.setParameter("CAR_ID", id);
+            query.setMaxResults(1);
+            repair = (Repair) query.uniqueResult();
+            transaction.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        session.close();
+
+        return repair;
     }
 }

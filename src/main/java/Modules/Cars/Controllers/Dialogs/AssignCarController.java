@@ -38,6 +38,9 @@ public class AssignCarController implements Initializable {
     private TableColumn<Car, String> note;
 
     @FXML
+    private TableColumn<Car, String> vin;
+
+    @FXML
     private TableColumn<Car, String> registrationNumber;
 
     @FXML
@@ -75,6 +78,7 @@ public class AssignCarController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         id.setCellValueFactory(new PropertyValueFactory("id"));
+        vin.setCellValueFactory(new PropertyValueFactory("vin"));
         note.setCellValueFactory(new PropertyValueFactory("note"));
         registrationNumber.setCellValueFactory(new PropertyValueFactory("registrationNumber"));
         createdAt.setCellValueFactory(new PropertyValueFactory("createdAt"));
