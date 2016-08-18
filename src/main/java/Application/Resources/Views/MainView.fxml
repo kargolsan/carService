@@ -8,11 +8,16 @@
     <children>
         <AnchorPane VBox.vgrow="ALWAYS">
             <children>
-                <TabPane fx:id="tabPane" id="tabPane" focusTraversable="false" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TabPane id="tabPane" fx:id="tabPane" focusTraversable="false" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                        <Tab text="vkkghkghv">
-
-                        </Tab>
+                        <Tab closable="false" text="Dashboard">
+                     <content>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Button" />
+                           </children>
+                        </StackPane>
+                     </content></Tab>
                     </tabs>
                 </TabPane>
             </children>

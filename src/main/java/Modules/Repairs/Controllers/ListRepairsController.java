@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import Application.Services.TabsService;
 import Modules.Cars.Models.Car;
 import Modules.Cars.Repositories.CarRepository;
 import Modules.Repairs.Models.Repair;
@@ -34,6 +35,12 @@ public class ListRepairsController implements Initializable {
 
     @FXML
     private TableColumn<Repair, Long> id;
+
+    @FXML
+    private TableColumn<Repair, Date> dateStart;
+
+    @FXML
+    private TableColumn<Repair, Date> dateEnd;
 
     @FXML
     private TableColumn<Repair, String> note;
@@ -73,6 +80,8 @@ public class ListRepairsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         id.setCellValueFactory(new PropertyValueFactory("id"));
+        dateStart.setCellValueFactory(new PropertyValueFactory("dateStart"));
+        dateEnd.setCellValueFactory(new PropertyValueFactory("dateEnd"));
         note.setCellValueFactory(new PropertyValueFactory("note"));
         carId.setCellValueFactory(new PropertyValueFactory("carId"));
         carRegistrationNumber.setCellValueFactory(new CellValueFactoryService().propertyRegistrationNumberFactory());
@@ -85,6 +94,11 @@ public class ListRepairsController implements Initializable {
     public void refresh(){
         repairs.clear();
         repairs.addAll(RepairRepository.getAll());
+    }
+
+    @FXML
+    public void add(){
+        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/AddRepairView.fxml");
     }
 
 

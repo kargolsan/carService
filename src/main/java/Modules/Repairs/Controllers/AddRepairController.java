@@ -1,19 +1,16 @@
 package Modules.Repairs.Controllers;
 
+import Modules.Cars.Models.Car;
 import Modules.Repairs.Models.Repair;
 import Modules.Repairs.Repositories.RepairRepository;
-import Modules.Repairs.Services.CellValueFactoryService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import Modules.Cars.Stages.AssignCar;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.scene.layout.AnchorPane;
 import java.net.URL;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 
@@ -24,6 +21,15 @@ import java.util.ResourceBundle;
  * Time: 15:43
  */
 public class AddRepairController implements Initializable {
+
+    @FXML
+    private AnchorPane root;
+
+    @FXML
+    private DatePicker dateStart;
+
+    @FXML
+    private DatePicker dateEnd;
 
     @FXML
     private TextArea note;
@@ -49,17 +55,41 @@ public class AddRepairController implements Initializable {
 
     }
 
+    /**
+     * Add repair to database
+     */
     @FXML
     public void add(){
         Repair repair = new Repair();
+        repair.setDateStart(Date.valueOf(dateStart.getValue()));
+        repair.setDateEnd(Date.valueOf(dateEnd.getValue()));
         repair.setNote(note.getText());
         RepairRepository.add(repair);
         clear();
     }
 
+    /**
+     * Clear data in view
+     */
     @FXML
     public void clear(){
+        dateStart.setValue(null);
+        dateEnd.setValue(null);
         note.clear();
+    }
+
+    /**
+     * Assign car to repair
+     */
+    @FXML
+    public void assignCar(){
+
+        Car result = AssignCar.showDialog();
+        if (result != null){
+            System.out.println(result.getNote());
+        }
+
+
     }
 
 

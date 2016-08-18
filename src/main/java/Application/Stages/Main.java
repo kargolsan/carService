@@ -14,6 +14,9 @@ import javafx.application.Application;
  */
 public class Main extends Application {
 
+    /** Stage static */
+    private static Stage stage;
+
     /** Path to view of main stage */
     private static final String VIEW = "/Application/Resources/Views/MainView.fxml";
 
@@ -25,6 +28,7 @@ public class Main extends Application {
      * @param stage main of application
      */
     public void start(Stage stage) {
+        Main.stage = stage;
         try {
             VBox page = FXMLLoader.load(getClass().getResource(VIEW));
             Scene scene = new Scene(page);
@@ -33,5 +37,14 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Get stage
+     *
+     * @return stage
+     */
+    public static Stage getStage(){
+        return stage;
     }
 }

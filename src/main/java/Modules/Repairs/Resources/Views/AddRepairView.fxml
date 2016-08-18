@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.AddRepairController">
+<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.AddRepairController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Note:" />
-            <TextArea fx:id="note" prefHeight="200.0" prefWidth="200.0" />
-            <Button mnemonicParsing="false" onAction="#add" text="Add" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
+                           <children>
+                              <Label text="Car of repair:" />
+                              <Label text="Nothing assign">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Button mnemonicParsing="false" onAction="#assignCar" text="Assign car" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Date repair start:" />
+                                    <DatePicker id="dateStart" fx:id="dateStart" />
+                                 </children>
+                              </VBox>
+                              <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Date repair end:" />
+                                    <DatePicker id="dateEnd" fx:id="dateEnd" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <VBox prefWidth="100.0">
+                           <children>
+                              <Label text="Note:" />
+                              <TextArea fx:id="note" prefHeight="56.0" prefWidth="137.0" />
+                           </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#add" text="Add" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

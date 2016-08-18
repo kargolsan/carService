@@ -1,12 +1,14 @@
 package Application.Controllers;
 
 import java.net.URL;
+
 import javafx.fxml.FXML;
 import Application.Stages.Main;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
 import Application.Services.TabsService;
+import javafx.stage.Stage;
 
 /**
  * Created by IntelliJ IDEA.
@@ -46,6 +48,5 @@ public class MainController implements Initializable {
         TabsService.setTabPane(tabPane);
         TabsService.addTab("/Modules/Cars/Resources/Views/Tabs/ListCarsView.fxml");
         TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/ListRepairsView.fxml");
-        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/AddRepairView.fxml");
     }
 }

@@ -4,5 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <Tab text="Cars" xmlns:fx="http://javafx.com/fxml/1">
-    <fx:include source="../ListCarsView.fxml" />
+    <content>
+        <fx:include source="../ListCarsView.fxml" />
+    </content>
 </Tab>

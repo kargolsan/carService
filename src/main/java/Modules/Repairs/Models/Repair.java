@@ -26,6 +26,14 @@ public class Repair {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "DATE_START")
+    @Type(type = "timestamp")
+    private Date dateStart;
+
+    @Column(name = "DATE_END")
+    @Type(type = "timestamp")
+    private Date dateEnd;
+
     @Column(name = "NOTE", length = 4000)
     private String note;
 
@@ -46,6 +54,22 @@ public class Repair {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public String getNote() {

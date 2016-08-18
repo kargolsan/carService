@@ -3,6 +3,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <Tab text="Addition repair" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <fx:include source="../AddRepairView.fxml" />
+    <content>
+        <fx:include source="../AddRepairView.fxml" />
+    </content>
 </Tab>
