@@ -2,6 +2,7 @@ package Application.Controllers;
 
 import java.net.URL;
 
+import Application.Services.LanguageService;
 import javafx.fxml.FXML;
 import Application.Stages.Main;
 import java.util.ResourceBundle;
@@ -46,7 +47,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TabsService.setTabPane(tabPane);
-        TabsService.addTab("/Modules/Cars/Resources/Views/Tabs/ListCarsView.fxml");
-        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/ListRepairsView.fxml");
+        TabsService.addTab("/Modules/Cars/Resources/Views/Tabs/ListCarsView.fxml", "Modules/Cars/Resources/Languages/cars");
+        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/ListRepairsView.fxml", "Modules/Repairs/Resources/Languages/repairs");
     }
 }

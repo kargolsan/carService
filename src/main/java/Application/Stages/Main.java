@@ -1,10 +1,13 @@
 package Application.Stages;
 
+import Application.Services.LanguageService;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import javafx.application.Application;
+
+import java.util.ResourceBundle;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,6 +23,9 @@ public class Main extends Application {
     /** Path to view of main stage */
     private static final String VIEW = "/Application/Resources/Views/MainView.fxml";
 
+    /** Path to language of main stage */
+    private static final String LANGUAGE = "Application/Resources/Languages/application";
+
     /**
      * The main entry point for all JavaFX applications.
      * The start method is called after the init method has returned,
@@ -30,7 +36,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         Main.stage = stage;
         try {
-            VBox page = FXMLLoader.load(getClass().getResource(VIEW));
+            VBox page = FXMLLoader.load(getClass().getResource(VIEW), LanguageService.getResourceBundle(LANGUAGE));
             Scene scene = new Scene(page);
             stage.setScene(scene);
             stage.show();

@@ -103,7 +103,7 @@ public class ListRepairsController implements Initializable {
 
     @FXML
     public void add(){
-        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/AddRepairView.fxml");
+        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/AddRepairView.fxml", "Modules/Repairs/Resources/Languages/repairs");
     }
 
     /**

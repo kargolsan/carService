@@ -1,5 +1,7 @@
 package Modules.Cars.Controllers;
 
+import Application.Services.AlertService;
+import Application.Services.LanguageService;
 import Application.Services.TabsService;
 import Modules.Cars.Models.Car;
 import Modules.Cars.Repositories.CarRepository;
@@ -53,6 +55,12 @@ public class ListCarsController implements Initializable {
     @FXML
     private MenuItem delete;
 
+    /** Path to language of main stage */
+    private static final String LANGUAGE = "Modules/Cars/Resources/Languages/cars";
+
+    /** Set resource bundle */
+    private ResourceBundle resourceBundle = LanguageService.getResourceBundle(LANGUAGE);
+
     /** Observable list with repairs for table in view */
     public static ObservableList<Car> cars;
 
@@ -92,7 +100,7 @@ public class ListCarsController implements Initializable {
 
     @FXML
     public void add(){
-        TabsService.addTab("/Modules/Cars/Resources/Views/Tabs/AddCarView.fxml");
+        TabsService.addTab("/Modules/Cars/Resources/Views/Tabs/AddCarView.fxml", "Modules/Cars/Resources/Languages/cars");
     }
 
     /**
@@ -118,11 +126,10 @@ public class ListCarsController implements Initializable {
         if (carCanDelete == null){
             result = CarRepository.delete(car.getId());
         } else {
-            Alert alert = new javafx.scene.control.Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Warning");
-            alert.setContentText(String.format("The vehicle can not be removed because it is assigned to a repair %1$s", carCanDelete.getId()));
-            alert.showAndWait();
+            AlertService.warning(
+                    resourceBundle.getString("list_car_controller.can_not_delete"),
+                    String.format(resourceBundle.getString("list_car_controller.can_not_delete_because_car_assign_to_repair"), carCanDelete.getId())
+            );
         }
         if (result){
             cars.remove(car);

@@ -1,6 +1,8 @@
 package Application.Services;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -27,11 +29,16 @@ public class TabsService {
 
     /**
      * Add tab to tab container in main view of application
+     *
+     * @param pathView to view
+     * @param resourceBundlePath path to resource bundle
      */
-    public static void addTab(String pathView){
+    public static void addTab(String pathView, String resourceBundlePath){
         try {
-            Tab tab = FXMLLoader.load(TabsService.class.getResource(pathView));
+            ResourceBundle resourceBundle = LanguageService.getResourceBundle(resourceBundlePath);
+            Tab tab = FXMLLoader.load(TabsService.class.getResource(pathView), resourceBundle);
             tabPane.getTabs().add(tab);
+            tabPane.getSelectionModel().select(tab);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -16,8 +16,8 @@
          <children>
             <HBox prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-                  <Button mnemonicParsing="false" onAction="#add" text="Add" />
+                  <Button mnemonicParsing="false" onAction="#refresh" text="%tab.list_cars.button.refresh" />
+                  <Button mnemonicParsing="false" onAction="#add" text="%tab.list_cars.button.add" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -25,17 +25,17 @@
             </HBox>
               <TableView id="tableCars" fx:id="tableCars" focusTraversable="false" prefHeight="262.0" prefWidth="443.0" VBox.vgrow="ALWAYS">
                   <columns>
-                      <TableColumn id="id" fx:id="id" editable="false" maxWidth="50.0" prefWidth="30.0" text="Id" />
-                      <TableColumn id="vin" fx:id="vin" editable="false" prefWidth="110.0" text="Vin" />
-                      <TableColumn id="note" fx:id="note" editable="false" prefWidth="110.0" text="Note" />
-                      <TableColumn id="registrationNumber" fx:id="registrationNumber" editable="false" prefWidth="110.0" text="Registration number" />
-                      <TableColumn id="createdAt" fx:id="createdAt" editable="false" prefWidth="110.0" text="Created at" />
-                      <TableColumn id="updatedAt" fx:id="updatedAt" editable="false" prefWidth="110.0" text="Updated at" />
+                      <TableColumn id="id" fx:id="id" editable="false" maxWidth="50.0" prefWidth="30.0" text="%tab.list_cars.table_view.id" />
+                      <TableColumn id="vin" fx:id="vin" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.vin" />
+                      <TableColumn id="note" fx:id="note" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.note" />
+                      <TableColumn id="registrationNumber" fx:id="registrationNumber" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.registration_number" />
+                      <TableColumn id="createdAt" fx:id="createdAt" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.created_at" />
+                      <TableColumn id="updatedAt" fx:id="updatedAt" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.updated_at" />
                   </columns>
                   <contextMenu>
                       <ContextMenu onShowing="#showingContextMenu">
                           <items>
-                              <MenuItem fx:id="delete" mnemonicParsing="false" onAction="#delete" text="Delete" />
+                              <MenuItem fx:id="delete" mnemonicParsing="false" onAction="#delete" text="%tab.list_cars.context_menu.delete" />
                           </items>
                       </ContextMenu>
                   </contextMenu>

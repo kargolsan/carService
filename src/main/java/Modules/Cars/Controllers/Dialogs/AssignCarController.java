@@ -50,7 +50,7 @@ public class AssignCarController implements Initializable {
     private TableColumn<Car, Date> updatedAt;
 
     @FXML
-    private Button ok;
+    private Button assign;
 
     /** Observable list with repairs for table in view */
     public static ObservableList<Car> cars;
@@ -86,7 +86,7 @@ public class AssignCarController implements Initializable {
         tableCars.setItems(cars);
         tableCars.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                ok.setDisable(false);
+                assign.setDisable(false);
             }
         });
     }
@@ -95,7 +95,7 @@ public class AssignCarController implements Initializable {
      * Accept and exit dialog with result object
      */
     @FXML
-    public void ok() {
+    public void assign() {
         result = tableCars.getSelectionModel().getSelectedItem();
         close();
     }
