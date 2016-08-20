@@ -1,8 +1,7 @@
 package Application.Services;
 
-import javafx.scene.control.Alert;
-
 import java.util.ResourceBundle;
+import javafx.scene.control.Alert;
 
 /**
  * Created by IntelliJ IDEA.

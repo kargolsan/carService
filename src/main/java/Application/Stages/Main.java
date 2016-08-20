@@ -1,13 +1,11 @@
 package Application.Stages;
 
-import Application.Services.LanguageService;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import javafx.application.Application;
-
-import java.util.ResourceBundle;
+import Application.Services.LanguageService;
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.EditRepairController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
+                           <children>
+                              <Label text="%tab.edit_repair.label.car_repair" />
+                              <Label fx:id="infoAssignCar" text="%tab.edit_repair.label.no_assign" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Button mnemonicParsing="false" onAction="#assignCar" text="%tab.edit_repair.button.assign_car" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="%tab.edit_repair.label.date_start_repair" />
+                                    <DatePicker id="dateStart" fx:id="dateStart" />
+                                 </children>
+                              </VBox>
+                              <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="%tab.edit_repair.label.date_end_repair" />
+                                    <DatePicker id="dateEnd" fx:id="dateEnd" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <VBox prefWidth="100.0">
+                           <children>
+                              <Label text="%tab.edit_repair.label.note" />
+                              <TextArea fx:id="note" prefHeight="56.0" prefWidth="137.0" />
+                           </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#update" text="%tab.edit_repair.button.update" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

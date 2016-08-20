@@ -1,21 +1,23 @@
 package Modules.Cars.Controllers.Dialogs;
 
-import Application.Services.StageDialogService;
-import Modules.Cars.Models.Car;
-import Modules.Cars.Repositories.CarRepository;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import java.net.URL;
 import java.util.Date;
+import javafx.fxml.FXML;
+import Modules.Cars.Models.Car;
+import javafx.scene.layout.VBox;
 import java.util.ResourceBundle;
+import javafx.scene.control.Tab;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import Application.Interfaces.IControllerTab;
+import Modules.Cars.Repositories.CarRepository;
+import Application.Services.StageDialogService;
+import Modules.Cars.Services.CellValueFactoryService;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,7 +25,7 @@ import java.util.ResourceBundle;
  * Date: 18.08.2016
  * Time: 12:40
  */
-public class AssignCarController implements Initializable {
+public class AssignCarController implements Initializable, IControllerTab {
 
     @FXML
     private VBox root;
@@ -64,7 +66,7 @@ public class AssignCarController implements Initializable {
     public AssignCarController()
     {
         cars = FXCollections.observableArrayList();
-        cars.addAll(CarRepository.getAll());
+        cars.addAll(CarRepository.sortCreatedAtDesc(CarRepository.getAll()));
     }
 
     /**
@@ -81,8 +83,8 @@ public class AssignCarController implements Initializable {
         vin.setCellValueFactory(new PropertyValueFactory("vin"));
         note.setCellValueFactory(new PropertyValueFactory("note"));
         registrationNumber.setCellValueFactory(new PropertyValueFactory("registrationNumber"));
-        createdAt.setCellValueFactory(new PropertyValueFactory("createdAt"));
-        updatedAt.setCellValueFactory(new PropertyValueFactory("updatedAt"));
+        createdAt.setCellValueFactory(new CellValueFactoryService().propertyCreatedAtFactory());
+        updatedAt.setCellValueFactory(new CellValueFactoryService().propertyUpdatedAtFactory());
         tableCars.setItems(cars);
         tableCars.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -90,6 +92,25 @@ public class AssignCarController implements Initializable {
             }
         });
     }
+
+    /**
+     * loaded after initialized controller
+     *
+     * @param options for controller
+     * @param tab of controller
+     * @param lastTab opened
+     */
+    @Override
+    public void loaded(Object options, Tab tab, Tab lastTab) {
+
+    }
+
+    @FXML
+    public void refresh(){
+        cars.clear();
+        cars.addAll(CarRepository.sortCreatedAtDesc(CarRepository.getAll()));
+    }
+
 
     /**
      * Accept and exit dialog with result object

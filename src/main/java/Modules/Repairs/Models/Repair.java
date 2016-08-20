@@ -1,10 +1,9 @@
 package Modules.Repairs.Models;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,14 +1,14 @@
 package Modules.Cars.Repositories;
 
-import Database.Services.SessionService;
-import Modules.Cars.Models.Car;
-import Modules.Repairs.Models.Repair;
+import java.util.List;
+import java.util.Date;
+import java.util.Collections;
 import org.hibernate.Session;
+import Modules.Cars.Models.Car;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import java.util.Date;
-import java.util.List;
+import Database.Services.SessionService;
+import Modules.Cars.Services.ComparatorService;
 
 /**
  * Created by IntelliJ IDEA.
@@ -49,7 +49,6 @@ public class CarRepository {
      * @return car
      */
     public static Car get(Long id) {
-
         Car car = null;
         Session session = SessionService.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -130,5 +129,15 @@ public class CarRepository {
         }
         session.close();
         return result;
+    }
+
+    /**
+     * Sort cars by created at descending
+     * @param cars
+     * @return
+     */
+    public static List<Car> sortCreatedAtDesc(List<Car> cars){
+        Collections.sort(cars, ComparatorService.CREATED_AT);
+        return cars;
     }
 }

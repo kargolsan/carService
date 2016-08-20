@@ -2,13 +2,13 @@ package Modules.Repairs.Repositories;
 
 import java.util.List;
 import java.util.Date;
-
-import Modules.Cars.Models.Car;
 import org.hibernate.Session;
+import java.util.Collections;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import Modules.Repairs.Models.Repair;
 import Database.Services.SessionService;
+import Modules.Repairs.Services.ComparatorService;
 
 /**
  * Created by IntelliJ IDEA.
@@ -49,7 +49,6 @@ public class RepairRepository {
      * @return repair
      */
     public static Repair get(Long id) {
-
         Repair repair = null;
         Session session = SessionService.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -158,5 +157,15 @@ public class RepairRepository {
         session.close();
 
         return repair;
+    }
+
+    /**
+     * Sort repairs by created at descending
+     * @param repairs
+     * @return
+     */
+    public static List<Repair> sortCreatedAtDesc(List<Repair> repairs){
+        Collections.sort(repairs, ComparatorService.CREATED_AT);
+        return repairs;
     }
 }

@@ -3,20 +3,22 @@ package Modules.Repairs.Controllers;
 import java.net.URL;
 import java.sql.Date;
 import javafx.fxml.FXML;
+import java.time.ZoneId;
 import java.time.LocalDate;
 import Modules.Cars.Models.Car;
-import javafx.scene.control.Tab;
 import java.util.ResourceBundle;
+import javafx.scene.control.Tab;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import Modules.Repairs.Models.Repair;
 import Modules.Cars.Stages.AssignCar;
 import javafx.scene.control.TextArea;
-import Modules.Repairs.Models.Repair;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.DatePicker;
 import Application.Services.TabsService;
 import Application.Services.LanguageService;
 import Application.Interfaces.IControllerTab;
+import Modules.Cars.Repositories.CarRepository;
 import Modules.Repairs.Repositories.RepairRepository;
 
 /**
@@ -25,7 +27,7 @@ import Modules.Repairs.Repositories.RepairRepository;
  * Date: 17.08.2016
  * Time: 15:43
  */
-public class AddRepairController implements Initializable, IControllerTab {
+public class EditRepairController implements Initializable, IControllerTab {
 
     /** tab of this controller */
     private Tab tab;
@@ -48,6 +50,9 @@ public class AddRepairController implements Initializable, IControllerTab {
     @FXML
     private Label infoAssignCar;
 
+    /** editable repair */
+    private Repair repair;
+
     /** Assign car to repair */
     private Car assignCar;
 
@@ -60,7 +65,7 @@ public class AddRepairController implements Initializable, IControllerTab {
     /**
      * Constructor
      */
-    public AddRepairController()
+    public EditRepairController()
     {
 
     }
@@ -81,21 +86,35 @@ public class AddRepairController implements Initializable, IControllerTab {
     /**
      * loaded after initialized controller
      *
-     * @param options for controller
+     * @param repair for controller
      * @param tab of controller
      * @param lastTab opened
      */
     @Override
-    public void loaded(Object options, Tab tab, Tab lastTab) {
+    public void loaded(Object repair, Tab tab, Tab lastTab) {
         configurationTab(tab, lastTab);
+        this.repair = (Repair) repair;
+
+        if (this.repair.getDateStart() != null){
+            dateStart.setValue(this.repair.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+        if (this.repair.getDateEnd() != null){
+            dateEnd.setValue(this.repair.getDateEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+        note.setText(this.repair.getNote());
+        if (this.repair.getCarId() != null){
+            assignCar = CarRepository.get(this.repair.getCarId());
+        }
+        if (assignCar != null){
+            setInfoAssignCar();
+        }
     }
 
     /**
      * Add repair to database
      */
     @FXML
-    public void add(){
-        Repair repair = new Repair();
+    public void update(){
         LocalDate dateStartValue = dateStart.getValue();
         LocalDate dateEndValue = dateEnd.getValue();
         if (dateStartValue != null){
@@ -108,8 +127,8 @@ public class AddRepairController implements Initializable, IControllerTab {
             repair.setCarId(assignCar.getId());
         }
         repair.setNote(note.getText());
-        repair = RepairRepository.add(repair);
-        ListRepairsController.repairs.add(0, repair);
+        RepairRepository.update(repair);
+        ListRepairsController.repairs.set(ListRepairsController.repairs.indexOf(repair), repair);
         close();
     }
 
@@ -120,7 +139,7 @@ public class AddRepairController implements Initializable, IControllerTab {
     public void assignCar(){
         assignCar = AssignCar.showDialog();
         if (assignCar != null){
-            infoAssignCar.setText(String.format("%1$s", assignCar.getRegistrationNumber()));
+            setInfoAssignCar();
         }
     }
 
@@ -133,11 +152,18 @@ public class AddRepairController implements Initializable, IControllerTab {
     }
 
     /**
+     * Set label with assign car to repair
+     */
+    private void setInfoAssignCar() {
+        infoAssignCar.setText(String.format("%1$s", assignCar.getRegistrationNumber()));
+    }
+
+    /**
      * Configuration tab
      */
     private void configurationTab(Tab tab, Tab lastTab){
         this.tab = tab;
         this.lastTab = lastTab;
-        this.tab.setText(resourceBundle.getString("tab.add_repair.title"));
+        this.tab.setText(resourceBundle.getString("tab.edit_repair.title"));
     }
 }

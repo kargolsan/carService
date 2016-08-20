@@ -3,12 +3,12 @@ package Modules.Cars.Controllers;
 import java.net.URL;
 import javafx.fxml.FXML;
 import Modules.Cars.Models.Car;
+import javafx.scene.control.Tab;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import Application.Services.TabsService;
 import Application.Services.LanguageService;
 import Application.Interfaces.IControllerTab;
@@ -20,7 +20,7 @@ import Modules.Cars.Repositories.CarRepository;
  * Date: 17.08.2016
  * Time: 15:43
  */
-public class AddCarController implements Initializable, IControllerTab {
+public class EditCarController implements Initializable, IControllerTab {
 
     /** tab of this controller */
     private Tab tab;
@@ -40,6 +40,9 @@ public class AddCarController implements Initializable, IControllerTab {
     @FXML
     private TextArea note;
 
+    /** editable car */
+    private Car car;
+
     /** Path to language of main stage */
     private static final String LANGUAGE = "Modules/Cars/Resources/Languages/cars";
 
@@ -49,7 +52,7 @@ public class AddCarController implements Initializable, IControllerTab {
     /**
      * Constructor
      */
-    public AddCarController()
+    public EditCarController()
     {
 
     }
@@ -70,26 +73,29 @@ public class AddCarController implements Initializable, IControllerTab {
     /**
      * loaded after initialized controller
      *
-     * @param options for controller
+     * @param car for controller
      * @param tab of controller
      * @param lastTab opened
      */
     @Override
-    public void loaded(Object options, Tab tab, Tab lastTab) {
+    public void loaded(Object car, Tab tab, Tab lastTab) {
         configurationTab(tab, lastTab);
+        this.car = (Car)car;
+        registrationNumber.setText(this.car.getRegistrationNumber());
+        vin.setText(this.car.getVin());
+        note.setText(this.car.getNote());
     }
 
     /**
      * Add repair to database
      */
     @FXML
-    public void add(){
-        Car car = new Car();
+    public void update(){
         car.setRegistrationNumber(registrationNumber.getText());
         car.setVin(vin.getText());
         car.setNote(note.getText());
-        car = CarRepository.add(car);
-        ListCarsController.cars.add(0, car);
+        CarRepository.update(car);
+        ListCarsController.cars.set(ListCarsController.cars.indexOf(car), car);
         close();
     }
 
@@ -107,7 +113,6 @@ public class AddCarController implements Initializable, IControllerTab {
     private void configurationTab(Tab tab, Tab lastTab){
         this.tab = tab;
         this.lastTab = lastTab;
-        this.tab.setText(resourceBundle.getString("tab.add_car.title"));
+        this.tab.setText(resourceBundle.getString("tab.edit_car.title"));
     }
 }
-

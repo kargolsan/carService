@@ -1,13 +1,13 @@
 package Modules.Cars.Stages;
 
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.fxml.FXMLLoader;
+import Modules.Cars.Models.Car;
+import Application.Stages.Main;
+import javafx.scene.layout.VBox;
 import Application.Services.LanguageService;
 import Application.Services.StageDialogService;
-import Application.Stages.Main;
-import Modules.Cars.Models.Car;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 
 /**
  * Created by IntelliJ IDEA.

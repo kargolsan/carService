@@ -1,15 +1,13 @@
 package Modules.Repairs.Services;
 
-import Modules.Cars.Repositories.CarRepository;
-import Modules.Repairs.Models.Repair;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import javafx.util.Callback;
+import java.text.SimpleDateFormat;
+import Modules.Repairs.Models.Repair;
+import javafx.scene.control.TableColumn;
+import javafx.beans.value.ObservableValue;
+import Modules.Cars.Repositories.CarRepository;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 
 /**
  * Created by IntelliJ IDEA.
@@ -52,6 +50,27 @@ public class CellValueFactoryService {
 
                 if (data != null) {
                     result = formatter.format(repair.getValue().getCreatedAt());
+                }
+                return new ReadOnlyObjectWrapper(result);
+            }
+        };
+    }
+
+    /**
+     * Factory value for date and time
+     *
+     * @return value factory
+     */
+    public Callback<TableColumn.CellDataFeatures<Repair, Date>, ObservableValue<Date>> propertyUpdatedAtFactory(){
+        return new Callback<TableColumn.CellDataFeatures<Repair, Date>, ObservableValue<Date>>() {
+            public ObservableValue<Date> call(TableColumn.CellDataFeatures<Repair, Date> repair) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                Date data = repair.getValue().getUpdatedAt();
+                String result = null;
+
+                if (data != null) {
+                    result = formatter.format(repair.getValue().getUpdatedAt());
                 }
                 return new ReadOnlyObjectWrapper(result);
             }

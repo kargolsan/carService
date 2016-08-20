@@ -1,11 +1,12 @@
 package Application.Services;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
+import java.util.ResourceBundle;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
+import Application.Interfaces.IControllerTab;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +17,7 @@ import javafx.scene.control.TabPane;
 public class TabsService {
 
     /** tabPane in main view of application */
-    static private TabPane tabPane;
+    static public TabPane tabPane;
 
     /**
      * Set tabPane in main view of application
@@ -32,11 +33,19 @@ public class TabsService {
      *
      * @param pathView to view
      * @param resourceBundlePath path to resource bundle
+     * @param options for content of tab
      */
-    public static void addTab(String pathView, String resourceBundlePath){
+    public static void addTab(String pathView, String resourceBundlePath, Object options){
+        Tab lastTab = tabPane.getSelectionModel().getSelectedItem();
         try {
             ResourceBundle resourceBundle = LanguageService.getResourceBundle(resourceBundlePath);
-            Tab tab = FXMLLoader.load(TabsService.class.getResource(pathView), resourceBundle);
+
+            FXMLLoader loader = new FXMLLoader(TabsService.class.getResource(pathView), resourceBundle);
+            AnchorPane anchorPane = loader.load();
+            Tab tab = new Tab();
+            IControllerTab controller = loader.getController();
+            controller.loaded(options, tab, lastTab);
+            tab.setContent(anchorPane);
             tabPane.getTabs().add(tab);
             tabPane.getSelectionModel().select(tab);
         } catch (IOException e) {

@@ -1,27 +1,24 @@
 package Modules.Cars.Controllers;
 
-import Application.Services.AlertService;
-import Application.Services.LanguageService;
-import Application.Services.TabsService;
+import java.util.*;
+import java.net.URL;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import Modules.Cars.Models.Car;
-import Modules.Cars.Repositories.CarRepository;
+import javafx.stage.WindowEvent;
+import javafx.fxml.Initializable;
 import Modules.Repairs.Models.Repair;
-import Modules.Repairs.Repositories.RepairRepository;
+import Application.Services.TabsService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import Application.Services.AlertService;
+import Application.Services.LanguageService;
+import Application.Interfaces.IControllerTab;
+import Modules.Cars.Repositories.CarRepository;
+import Modules.Cars.Services.ConfirmationService;
+import Modules.Cars.Services.CellValueFactoryService;
+import Modules.Repairs.Repositories.RepairRepository;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.WindowEvent;
-
-import java.net.URL;
-import java.util.Date;
-import java.util.ResourceBundle;
-
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,7 +26,13 @@ import java.util.ResourceBundle;
  * Date: 17.08.2016
  * Time: 15:43
  */
-public class ListCarsController implements Initializable {
+public class ListCarsController implements Initializable, IControllerTab {
+
+    /** tab of this controller */
+    private Tab tab;
+
+    /** last opened tab */
+    private Tab lastTab;
 
     @FXML
     private TableView<Car> tableCars;
@@ -55,6 +58,9 @@ public class ListCarsController implements Initializable {
     @FXML
     private MenuItem delete;
 
+    @FXML
+    private MenuItem edit;
+
     /** Path to language of main stage */
     private static final String LANGUAGE = "Modules/Cars/Resources/Languages/cars";
 
@@ -70,7 +76,7 @@ public class ListCarsController implements Initializable {
     public ListCarsController()
     {
         cars = FXCollections.observableArrayList();
-        cars.addAll(CarRepository.getAll());
+        cars.addAll(CarRepository.sortCreatedAtDesc(CarRepository.getAll()));
     }
 
     /**
@@ -87,20 +93,50 @@ public class ListCarsController implements Initializable {
         vin.setCellValueFactory(new PropertyValueFactory("vin"));
         note.setCellValueFactory(new PropertyValueFactory("note"));
         registrationNumber.setCellValueFactory(new PropertyValueFactory("registrationNumber"));
-        createdAt.setCellValueFactory(new PropertyValueFactory("createdAt"));
-        updatedAt.setCellValueFactory(new PropertyValueFactory("updatedAt"));
+        createdAt.setCellValueFactory(new CellValueFactoryService().propertyCreatedAtFactory());
+        updatedAt.setCellValueFactory(new CellValueFactoryService().propertyUpdatedAtFactory());
         tableCars.setItems(cars);
     }
 
+    /**
+     * loaded after initialized controller
+     *
+     * @param options for controller
+     * @param tab of controller
+     * @param lastTab opened
+     */
+    @Override
+    public void loaded(Object options, Tab tab, Tab lastTab) {
+        configurationTab(tab, lastTab);
+    }
+
+    /**
+     * Refresh cars
+     */
     @FXML
     public void refresh(){
         cars.clear();
-        cars.addAll(CarRepository.getAll());
+        cars.addAll(CarRepository.sortCreatedAtDesc(CarRepository.getAll()));
     }
 
+    /**
+     * Add car
+     */
     @FXML
     public void add(){
-        TabsService.addTab("/Modules/Cars/Resources/Views/Tabs/AddCarView.fxml", "Modules/Cars/Resources/Languages/cars");
+        TabsService.addTab("/Modules/Cars/Resources/Views/AddCarView.fxml", "Modules/Cars/Resources/Languages/cars", null);
+    }
+
+    /**
+     * Edit car
+     */
+    @FXML
+    public void edit(){
+        TabsService.addTab(
+                "/Modules/Cars/Resources/Views/EditCarView.fxml",
+                "Modules/Cars/Resources/Languages/cars",
+                tableCars.getSelectionModel().getSelectedItem()
+        );
     }
 
     /**
@@ -112,6 +148,7 @@ public class ListCarsController implements Initializable {
     protected void showingContextMenu(WindowEvent e) {
         Car car = tableCars.getSelectionModel().getSelectedItem();
         delete.setVisible(car != null);
+        edit.setVisible(car != null);
     }
 
     /**
@@ -120,6 +157,7 @@ public class ListCarsController implements Initializable {
     @FXML
     private void delete()
     {
+        if (!ConfirmationService.confirmDelete(resourceBundle)) { return; }
         Car car = tableCars.getSelectionModel().getSelectedItem();
         Repair carCanDelete = RepairRepository.carCanDelete(car.getId());
         Boolean result = false;
@@ -136,4 +174,12 @@ public class ListCarsController implements Initializable {
         }
     }
 
+    /**
+     * Configuration tab
+     */
+    private void configurationTab(Tab tab, Tab lastTab){
+        this.tab = tab;
+        this.lastTab = lastTab;
+        this.tab.setText(resourceBundle.getString("tab.list_cars.title"));
+    }
 }

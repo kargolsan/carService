@@ -2,27 +2,21 @@ package Modules.Repairs.Controllers;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
-
-import Application.Services.TabsService;
-import Modules.Cars.Models.Car;
-import Modules.Cars.Repositories.CarRepository;
-import Modules.Repairs.Models.Repair;
-import Modules.Repairs.Repositories.RepairRepository;
-import Modules.Repairs.Services.CellValueFactoryService;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
-
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
+import Modules.Repairs.Models.Repair;
+import javafx.collections.FXCollections;
+import Application.Services.TabsService;
+import javafx.collections.ObservableList;
+import Application.Services.LanguageService;
+import Application.Interfaces.IControllerTab;
+import Modules.Repairs.Services.ConfirmationService;
+import Modules.Repairs.Repositories.RepairRepository;
+import javafx.scene.control.cell.PropertyValueFactory;
+import Modules.Repairs.Services.CellValueFactoryService;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,7 +24,13 @@ import javafx.util.Callback;
  * Date: 17.08.2016
  * Time: 15:43
  */
-public class ListRepairsController implements Initializable {
+public class ListRepairsController implements Initializable, IControllerTab {
+
+    /** tab of this controller */
+    private Tab tab;
+
+    /** last opened tab */
+    private Tab lastTab;
 
     @FXML
     private TableView<Repair> tableRepairs;
@@ -62,8 +62,17 @@ public class ListRepairsController implements Initializable {
     @FXML
     private MenuItem delete;
 
+    @FXML
+    private MenuItem edit;
+
     /** Observable list with repairs for table in view */
     public static ObservableList<Repair> repairs;
+
+    /** Path to language of main stage */
+    private static final String LANGUAGE = "Modules/Repairs/Resources/Languages/repairs";
+
+    /** Set resource bundle */
+    private ResourceBundle resourceBundle = LanguageService.getResourceBundle(LANGUAGE);
 
     /**
      * Constructor
@@ -71,7 +80,7 @@ public class ListRepairsController implements Initializable {
     public ListRepairsController()
     {
         repairs = FXCollections.observableArrayList();
-        repairs.addAll(RepairRepository.getAll());
+        repairs.addAll(RepairRepository.sortCreatedAtDesc(RepairRepository.getAll()));
     }
 
     /**
@@ -91,19 +100,49 @@ public class ListRepairsController implements Initializable {
         carId.setCellValueFactory(new PropertyValueFactory("carId"));
         carRegistrationNumber.setCellValueFactory(new CellValueFactoryService().propertyRegistrationNumberFactory());
         createdAt.setCellValueFactory(new CellValueFactoryService().propertyCreatedAtFactory());
-        updatedAt.setCellValueFactory(new PropertyValueFactory("updatedAt"));
+        updatedAt.setCellValueFactory(new CellValueFactoryService().propertyUpdatedAtFactory());
         tableRepairs.setItems(repairs);
     }
 
+    /**
+     * loaded after initialized controller
+     *
+     * @param options for controller
+     * @param tab of controller
+     * @param lastTab opened
+     */
+    @Override
+    public void loaded(Object options, Tab tab, Tab lastTab) {
+        configurationTab(tab, lastTab);
+    }
+
+    /**
+     * Refresh repairs
+     */
     @FXML
     public void refresh(){
         repairs.clear();
-        repairs.addAll(RepairRepository.getAll());
+        repairs.addAll(RepairRepository.sortCreatedAtDesc(RepairRepository.getAll()));
     }
 
+    /**
+     * Add repair
+     */
     @FXML
     public void add(){
-        TabsService.addTab("/Modules/Repairs/Resources/Views/Tabs/AddRepairView.fxml", "Modules/Repairs/Resources/Languages/repairs");
+        TabsService.addTab("/Modules/Repairs/Resources/Views/AddRepairView.fxml", "Modules/Repairs/Resources/Languages/repairs", null);
+    }
+
+    /**
+     * Edit repair
+     */
+    @FXML
+    public void edit(){
+        TabsService.addTab(
+                "/Modules/Repairs/Resources/Views/EditRepairView.fxml",
+                "Modules/Repairs/Resources/Languages/repairs",
+                tableRepairs.getSelectionModel().getSelectedItem()
+        );
     }
 
     /**
@@ -115,6 +154,7 @@ public class ListRepairsController implements Initializable {
     protected void showingContextMenu(WindowEvent e) {
         Repair repair = tableRepairs.getSelectionModel().getSelectedItem();
         delete.setVisible(repair != null);
+        edit.setVisible(repair != null);
     }
 
     /**
@@ -123,10 +163,20 @@ public class ListRepairsController implements Initializable {
     @FXML
     private void delete()
     {
+        if (!ConfirmationService.confirmDelete(resourceBundle)) { return; }
         Repair repair = tableRepairs.getSelectionModel().getSelectedItem();
         Boolean result = RepairRepository.delete(repair.getId());
         if (result){
             repairs.remove(repair);
         }
+    }
+
+    /**
+     * Configuration tab
+     */
+    private void configurationTab(Tab tab, Tab lastTab){
+        this.tab = tab;
+        this.lastTab = lastTab;
+        this.tab.setText(resourceBundle.getString("tab.list_repairs.title"));
     }
 }

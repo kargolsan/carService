@@ -1,7 +1,7 @@
 package Modules.Cars.Models;
 
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.GenericGenerator;
 
