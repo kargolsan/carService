@@ -3,11 +3,26 @@ version '1.0.0'
 
 // define for title of application
 def title = 'ITGolo CarService'
+def version = version
+def companyName = 'ITGolo'
+def jreMinVersion = '1.8.0'
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.edu.sc.seis.gradle:launch4j:1.6.2"
+    }
+}
 
 apply plugin: 'java'
 apply plugin: 'java-library-distribution'
+apply plugin: 'edu.sc.seis.launch4j'
 
-sourceCompatibility = 1.8
+sourceCompatibility = '1.8'
 
 // for distribution plugin
 distributions {
@@ -61,4 +76,16 @@ jar {
     baseName = project.name
 }
 
+// Configuration for launch4j
+launch4j {
+    mainClassName = 'start'
+    outfile = "${project.name}-${version}.exe"
+    icon = "${project.rootDir}/app.ico"
+    version = "${version}"
+    companyName = "${companyName}"
+    productName = "${title}"
+    jreMinVersion = "${jreMinVersion}"
+    copyright = "${companyName}"
+    description = "${title}"
+}
 

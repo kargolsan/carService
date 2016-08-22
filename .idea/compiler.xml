@@ -19,7 +19,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="CarService_main" target="1.8" />
       <module name="carService_main" target="1.8" />
+      <module name="CarService_test" target="1.8" />
       <module name="carService_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
