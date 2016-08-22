@@ -92,8 +92,8 @@ public class EditRepairController implements Initializable, IControllerTab {
      */
     @Override
     public void loaded(Object repair, Tab tab, Tab lastTab) {
-        configurationTab(tab, lastTab);
         this.repair = (Repair) repair;
+        configurationTab(this.repair, tab, lastTab);
 
         if (this.repair.getDateStart() != null){
             dateStart.setValue(this.repair.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
@@ -161,9 +161,9 @@ public class EditRepairController implements Initializable, IControllerTab {
     /**
      * Configuration tab
      */
-    private void configurationTab(Tab tab, Tab lastTab){
+    private void configurationTab(Repair repair, Tab tab, Tab lastTab){
         this.tab = tab;
         this.lastTab = lastTab;
-        this.tab.setText(resourceBundle.getString("tab.edit_repair.title"));
+        this.tab.setText(String.format(resourceBundle.getString("tab.edit_repair.title"), repair.getId()));
     }
 }

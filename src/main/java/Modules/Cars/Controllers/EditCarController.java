@@ -79,8 +79,8 @@ public class EditCarController implements Initializable, IControllerTab {
      */
     @Override
     public void loaded(Object car, Tab tab, Tab lastTab) {
-        configurationTab(tab, lastTab);
         this.car = (Car)car;
+        configurationTab(this.car, tab, lastTab);
         registrationNumber.setText(this.car.getRegistrationNumber());
         vin.setText(this.car.getVin());
         note.setText(this.car.getNote());
@@ -110,9 +110,9 @@ public class EditCarController implements Initializable, IControllerTab {
     /**
      * Configuration tab
      */
-    private void configurationTab(Tab tab, Tab lastTab){
+    private void configurationTab(Car car, Tab tab, Tab lastTab){
         this.tab = tab;
         this.lastTab = lastTab;
-        this.tab.setText(resourceBundle.getString("tab.edit_car.title"));
+        this.tab.setText(String.format(resourceBundle.getString("tab.edit_car.title"), car.getId()));
     }
 }

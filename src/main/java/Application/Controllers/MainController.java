@@ -1,12 +1,15 @@
 package Application.Controllers;
 
 import java.net.URL;
+
+import Application.Stages.LoaderMain;
 import javafx.fxml.FXML;
 import Application.Stages.Main;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
 import Application.Services.TabsService;
+import com.sun.javafx.application.LauncherImpl;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,10 +30,12 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Launch main stage
+     * Launch main stage with loader view
+     *
+     * @param args arguments when the program starts
      */
     public static void launch(String[] args){
-        Main.launch(Main.class, args);
+        LauncherImpl.launchApplication(Main.class, LoaderMain.class, args);
     }
 
     /**
@@ -44,7 +49,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TabsService.setTabPane(tabPane);
-        TabsService.addTab("/Modules/Cars/Resources/Views/ListCarsView.fxml", "Modules/Cars/Resources/Languages/cars", null);
-        TabsService.addTab("/Modules/Repairs/Resources/Views/ListRepairsView.fxml", "Modules/Repairs/Resources/Languages/repairs", null);
+        //TabsService.addTab("/Modules/Cars/Resources/Views/ListCarsView.fxml", "Modules/Cars/Resources/Languages/cars", null);
+        //TabsService.addTab("/Modules/Repairs/Resources/Views/ListRepairsView.fxml", "Modules/Repairs/Resources/Languages/repairs", null);
     }
 }
