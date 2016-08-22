@@ -37,7 +37,7 @@ sourceSets {
         resources {
             srcDirs = ["src/main/java", "src/main/resources"]
             includes = ["**/*.fxml","**/*.xml", "**/*.properties", "**/*.css",
-                        "**/*.png", "**/*.gif", "**/*.jpg"]
+                        "**/*.png", "**/*.gif", "**/*.jpg", "**/*.ico"]
         }
     }
 }
@@ -80,7 +80,7 @@ jar {
 launch4j {
     mainClassName = 'start'
     outfile = "${project.name}-${version}.exe"
-    icon = "${project.rootDir}/app.ico"
+    icon = "${project.rootDir}/src/main/java/Application/Resources/Assets/Images/Icons/app.ico"
     version = "${version}"
     companyName = "${companyName}"
     productName = "${title}"

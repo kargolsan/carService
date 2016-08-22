@@ -1,5 +1,6 @@
 package Database.Services;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -64,5 +65,13 @@ public class SessionService {
         } catch (Throwable e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Preload connection to database
+     */
+    public static void preload(){
+        Session session = SessionService.getSessionFactory().openSession();
+        session.close();
     }
 }

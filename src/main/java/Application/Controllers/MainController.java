@@ -2,7 +2,8 @@ package Application.Controllers;
 
 import java.net.URL;
 
-import Application.Stages.LoaderMain;
+import Application.Stages.Loader;
+import Database.Services.SessionService;
 import javafx.fxml.FXML;
 import Application.Stages.Main;
 import java.util.ResourceBundle;
@@ -35,7 +36,7 @@ public class MainController implements Initializable {
      * @param args arguments when the program starts
      */
     public static void launch(String[] args){
-        LauncherImpl.launchApplication(Main.class, LoaderMain.class, args);
+        LauncherImpl.launchApplication(Main.class, Loader.class, args);
     }
 
     /**
@@ -49,7 +50,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TabsService.setTabPane(tabPane);
-        //TabsService.addTab("/Modules/Cars/Resources/Views/ListCarsView.fxml", "Modules/Cars/Resources/Languages/cars", null);
-        //TabsService.addTab("/Modules/Repairs/Resources/Views/ListRepairsView.fxml", "Modules/Repairs/Resources/Languages/repairs", null);
+        SessionService.preload();
+        Loader.getStage().hide();
     }
 }

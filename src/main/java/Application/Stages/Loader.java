@@ -1,11 +1,13 @@
 package Application.Stages;
 
-import Application.Services.LanguageService;
-import javafx.application.Preloader;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.StageStyle;
+import javafx.scene.layout.VBox;
+import javafx.application.Preloader;
+import Application.Services.LanguageService;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,22 +15,21 @@ import javafx.stage.Stage;
  * Date: Aug 17, 2016
  * Time: 11:15:10 AM
  */
-public class LoaderMain extends Preloader {
+public class Loader extends Preloader {
 
     /**
      * Stage static
      */
     private static Stage stage;
 
-    /**
-     * Path to view of main stage
-     */
+    /** Path to view of main stage */
     private static final String VIEW = "/Application/Resources/Views/LoaderView.fxml";
 
-    /**
-     * Path to language of main stage
-     */
+    /** Path to language of main stage */
     private static final String LANGUAGE = "Application/Resources/Languages/application";
+
+    /** Icon of stage */
+    private static final String ICON = "/Application/Resources/Assets/Images/Icons/app.png";
 
     /**
      * The main entry point for all JavaFX applications.
@@ -38,11 +39,13 @@ public class LoaderMain extends Preloader {
      * @param stage main of application
      */
     public void start(Stage stage) {
-        LoaderMain.stage = stage;
+        Loader.stage = stage;
         try {
             VBox page = FXMLLoader.load(getClass().getResource(VIEW), LanguageService.getResourceBundle(LANGUAGE));
             Scene scene = new Scene(page);
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream(ICON)));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +60,7 @@ public class LoaderMain extends Preloader {
     @Override
     public void handleStateChangeNotification(StateChangeNotification stateChangeNotification) {
         if (stateChangeNotification.getType() == StateChangeNotification.Type.BEFORE_START) {
-            LoaderMain.stage.hide();
+            //Loader.stage.hide();
         }
     }
 

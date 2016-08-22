@@ -1,22 +1,27 @@
 package Application.Controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Karol Golec
  * Date: 22.08.2016
  * Time: 10:57
  */
-public class LoaderController {
+public class LoaderController implements Initializable {
 
     /**
-     * Show loader before start appliaction
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
      */
-    public static void show() {
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Information Dialog");
-//        alert.setHeaderText("Look, an Information Dialog");
-//        alert.setContentText("I have a great message for you!");
-//
-//        alert.show();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 }

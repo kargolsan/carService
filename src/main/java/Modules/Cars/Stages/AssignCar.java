@@ -1,6 +1,7 @@
 package Modules.Cars.Stages;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.fxml.FXMLLoader;
 import Modules.Cars.Models.Car;
@@ -23,6 +24,9 @@ public class AssignCar {
     /** Path to language of main stage */
     private static final String LANGUAGE = "Modules/Cars/Resources/Languages/cars";
 
+    /** Icon of stage */
+    private static final String ICON = "/Application/Resources/Assets/Images/Icons/app.png";
+
     /**
      * Show dialog in application
      *
@@ -37,6 +41,7 @@ public class AssignCar {
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(Main.getStage());
+            stage.getIcons().add(new Image(AssignCar.class.getResourceAsStream(ICON)));
             stage.showAndWait();
             result = (Car)stage.getResult();
         } catch (Exception e) {
