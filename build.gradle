@@ -5,7 +5,16 @@ version '1.0.0'
 def title = 'ITGolo CarService'
 
 apply plugin: 'java'
+apply plugin: 'java-library-distribution'
+
 sourceCompatibility = 1.8
+
+// for distribution plugin
+distributions {
+    main{
+        baseName = rootProject.name
+    }
+}
 
 // Selected files from java will be copied to the folder resources.
 sourceSets {
@@ -45,8 +54,11 @@ jar {
     manifest {
         attributes 'Implementation-Title': title,
                 'Implementation-Version': version,
-                "Main-Class": "Program"
+                "Main-Class": "start",
+                "Class-Path": configurations.runtime.files.collect { "lib/$it.name" }.join(' ')
+
     }
     baseName = project.name
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
+
+
