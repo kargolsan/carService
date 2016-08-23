@@ -46,6 +46,7 @@ public class TabsService {
             IControllerTab controller = loader.getController();
             controller.loaded(options, tab, lastTab);
             tab.setContent(anchorPane);
+            tab.setId("tab");
             tabPane.getTabs().add(tab);
             tabPane.getSelectionModel().select(tab);
         } catch (IOException e) {

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.AddRepairController">
+<AnchorPane id="root" fx:id="root" minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="360.0" stylesheets="@../Assets/Styles/AddRepair.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.AddRepairController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

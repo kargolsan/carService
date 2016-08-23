@@ -1,3 +1,11 @@
 #root {
-    -fx-background-color: #006699;
+    -fx-background-color: #2bc0f1;
+
+}
+Button {
+    -fx-base: #404141;
+}
+
+Label {
+    -fx-text-fill: #fffca1;
 }

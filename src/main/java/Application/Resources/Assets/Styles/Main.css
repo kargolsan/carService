@@ -1,0 +1,5 @@
+#tabPane {
+    -fx-background-image: url("../Images/Main/bg_pattern.jpg");
+    -fx-background-position: left top, center;
+    -fx-background-repeat: repeat;
+}
