@@ -2,10 +2,13 @@ package Modules.Cars.Controllers.Dialogs;
 
 import java.net.URL;
 import java.util.Date;
+
 import javafx.fxml.FXML;
 import Modules.Cars.Models.Car;
 import javafx.scene.layout.VBox;
+
 import java.util.ResourceBundle;
+
 import javafx.scene.control.Tab;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -46,6 +49,36 @@ public class AssignCarController implements Initializable, IControllerTab {
     private TableColumn<Car, String> registrationNumber;
 
     @FXML
+    private TableColumn<Car, String> user;
+
+    @FXML
+    private TableColumn<Car, String> phones;
+
+    @FXML
+    private TableColumn<Car, Date> yearProduction;
+
+    @FXML
+    private TableColumn<Car, String> body;
+
+    @FXML
+    private TableColumn<Car, String> engineCapacity;
+
+    @FXML
+    private TableColumn<Car, String> engineModel;
+
+    @FXML
+    private TableColumn<Car, String> enginePower;
+
+    @FXML
+    private TableColumn<Car, String> fuel;
+
+    @FXML
+    private TableColumn<Car, String> manufacturer;
+
+    @FXML
+    private TableColumn<Car, String> model;
+
+    @FXML
     private TableColumn<Car, Date> createdAt;
 
     @FXML
@@ -54,17 +87,20 @@ public class AssignCarController implements Initializable, IControllerTab {
     @FXML
     private Button assign;
 
-    /** Observable list with repairs for table in view */
+    /**
+     * Observable list with repairs for table in view
+     */
     public static ObservableList<Car> cars;
 
-    /** result of this dialog */
+    /**
+     * result of this dialog
+     */
     private Car result = null;
 
     /**
      * Constructor
      */
-    public AssignCarController()
-    {
+    public AssignCarController() {
         cars = FXCollections.observableArrayList();
         cars.addAll(CarRepository.sortCreatedAtDesc(CarRepository.getAll()));
     }
@@ -83,6 +119,16 @@ public class AssignCarController implements Initializable, IControllerTab {
         vin.setCellValueFactory(new PropertyValueFactory("vin"));
         note.setCellValueFactory(new PropertyValueFactory("note"));
         registrationNumber.setCellValueFactory(new PropertyValueFactory("registrationNumber"));
+        user.setCellValueFactory(new PropertyValueFactory("user"));
+        phones.setCellValueFactory(new PropertyValueFactory("phones"));
+        yearProduction.setCellValueFactory(new PropertyValueFactory("yearProduction"));
+        body.setCellValueFactory(new PropertyValueFactory("body"));
+        engineCapacity.setCellValueFactory(new PropertyValueFactory("engineCapacity"));
+        engineModel.setCellValueFactory(new PropertyValueFactory("engineModel"));
+        enginePower.setCellValueFactory(new PropertyValueFactory("enginePower"));
+        fuel.setCellValueFactory(new PropertyValueFactory("fuel"));
+        manufacturer.setCellValueFactory(new PropertyValueFactory("manufacturer"));
+        model.setCellValueFactory(new PropertyValueFactory("model"));
         createdAt.setCellValueFactory(new CellValueFactoryService().propertyCreatedAtFactory());
         updatedAt.setCellValueFactory(new CellValueFactoryService().propertyUpdatedAtFactory());
         tableCars.setItems(cars);
@@ -97,7 +143,7 @@ public class AssignCarController implements Initializable, IControllerTab {
      * loaded after initialized controller
      *
      * @param options for controller
-     * @param tab of controller
+     * @param tab     of controller
      * @param lastTab opened
      */
     @Override
@@ -106,7 +152,7 @@ public class AssignCarController implements Initializable, IControllerTab {
     }
 
     @FXML
-    public void refresh(){
+    public void refresh() {
         cars.clear();
         cars.addAll(CarRepository.sortCreatedAtDesc(CarRepository.getAll()));
     }
@@ -132,7 +178,7 @@ public class AssignCarController implements Initializable, IControllerTab {
     /**
      * Close stage
      */
-    private void close(){
+    private void close() {
         StageDialogService stage = (StageDialogService) root.getScene().getWindow();
         stage.setResult(result);
         stage.close();

@@ -50,6 +50,36 @@ public class ListCarsController implements Initializable, IControllerTab {
     private TableColumn<Car, String> registrationNumber;
 
     @FXML
+    private TableColumn<Car, String> user;
+
+    @FXML
+    private TableColumn<Car, String> phones;
+
+    @FXML
+    private TableColumn<Car, Date> yearProduction;
+
+    @FXML
+    private TableColumn<Car, String> body;
+
+    @FXML
+    private TableColumn<Car, String> engineCapacity;
+
+    @FXML
+    private TableColumn<Car, String> engineModel;
+
+    @FXML
+    private TableColumn<Car, String> enginePower;
+
+    @FXML
+    private TableColumn<Car, String> fuel;
+
+    @FXML
+    private TableColumn<Car, String> manufacturer;
+
+    @FXML
+    private TableColumn<Car, String> model;
+
+    @FXML
     private TableColumn<Car, Date> createdAt;
 
     @FXML
@@ -63,6 +93,12 @@ public class ListCarsController implements Initializable, IControllerTab {
 
     /** Path to language of main stage */
     private static final String LANGUAGE = "Modules/Cars/Resources/Languages/cars";
+
+    /** Path to icon of tab */
+    private static final String ICON = "/Modules/Cars/Resources/Assets/Images/Icons/cars.png";
+
+    /** Path to icon trash */
+    private static final String ICON_TRASH = "/Modules/Cars/Resources/Assets/Images/Icons/trash_20.png";
 
     /** Set resource bundle */
     private ResourceBundle resourceBundle = LanguageService.getResourceBundle(LANGUAGE);
@@ -93,6 +129,16 @@ public class ListCarsController implements Initializable, IControllerTab {
         vin.setCellValueFactory(new PropertyValueFactory("vin"));
         note.setCellValueFactory(new PropertyValueFactory("note"));
         registrationNumber.setCellValueFactory(new PropertyValueFactory("registrationNumber"));
+        user.setCellValueFactory(new PropertyValueFactory("user"));
+        phones.setCellValueFactory(new PropertyValueFactory("phones"));
+        yearProduction.setCellValueFactory(new PropertyValueFactory("yearProduction"));
+        body.setCellValueFactory(new PropertyValueFactory("body"));
+        engineCapacity.setCellValueFactory(new PropertyValueFactory("engineCapacity"));
+        engineModel.setCellValueFactory(new PropertyValueFactory("engineModel"));
+        enginePower.setCellValueFactory(new PropertyValueFactory("enginePower"));
+        fuel.setCellValueFactory(new PropertyValueFactory("fuel"));
+        manufacturer.setCellValueFactory(new PropertyValueFactory("manufacturer"));
+        model.setCellValueFactory(new PropertyValueFactory("model"));
         createdAt.setCellValueFactory(new CellValueFactoryService().propertyCreatedAtFactory());
         updatedAt.setCellValueFactory(new CellValueFactoryService().propertyUpdatedAtFactory());
         tableCars.setItems(cars);
@@ -108,6 +154,15 @@ public class ListCarsController implements Initializable, IControllerTab {
     @Override
     public void loaded(Object options, Tab tab, Tab lastTab) {
         configurationTab(tab, lastTab);
+    }
+
+    /**
+     * Cancel view
+     */
+    @FXML
+    public void cancel(){
+        TabsService.tabPane.getTabs().remove(tab);
+        TabsService.tabPane.getSelectionModel().select(lastTab);
     }
 
     /**
@@ -165,8 +220,8 @@ public class ListCarsController implements Initializable, IControllerTab {
             result = CarRepository.delete(car.getId());
         } else {
             AlertService.warning(
-                    resourceBundle.getString("list_car_controller.can_not_delete"),
-                    String.format(resourceBundle.getString("list_car_controller.can_not_delete_because_car_assign_to_repair"), carCanDelete.getId())
+                    String.format(resourceBundle.getString("list_car_controller.can_not_delete_because_car_assign_to_repair"), carCanDelete.getId()),
+                    ICON_TRASH
             );
         }
         if (result){
@@ -181,5 +236,6 @@ public class ListCarsController implements Initializable, IControllerTab {
         this.tab = tab;
         this.lastTab = lastTab;
         this.tab.setText(resourceBundle.getString("tab.list_cars.title"));
+        TabsService.setIcon(this.tab, ICON);
     }
 }

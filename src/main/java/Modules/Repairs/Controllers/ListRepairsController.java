@@ -71,6 +71,9 @@ public class ListRepairsController implements Initializable, IControllerTab {
     /** Path to language of main stage */
     private static final String LANGUAGE = "Modules/Repairs/Resources/Languages/repairs";
 
+    /** Path to icon of tab */
+    private static final String ICON = "/Modules/Repairs/Resources/Assets/Images/Icons/repairs.png";
+
     /** Set resource bundle */
     private ResourceBundle resourceBundle = LanguageService.getResourceBundle(LANGUAGE);
 
@@ -178,5 +181,6 @@ public class ListRepairsController implements Initializable, IControllerTab {
         this.tab = tab;
         this.lastTab = lastTab;
         this.tab.setText(resourceBundle.getString("tab.list_repairs.title"));
+        TabsService.setIcon(this.tab, ICON);
     }
 }

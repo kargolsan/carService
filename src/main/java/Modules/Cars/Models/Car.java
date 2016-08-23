@@ -37,6 +37,36 @@ public class Car {
     @Column(name = "NOTE", length = 4000)
     private String note;
 
+    @Column(name = "USER", length = 4000)
+    private String user;
+
+    @Column(name = "PHONES", length = 100)
+    private String phones;
+
+    @Column(name = "YEAR_PRODUCTION", length = 20)
+    private String yearProduction;
+
+    @Column(name = "BODY", length = 100)
+    private String body;
+
+    @Column(name = "ENGINE_CAPACITY", length = 100)
+    private String engineCapacity;
+
+    @Column(name = "ENGINE_MODEL", length = 100)
+    private String engineModel;
+
+    @Column(name = "ENGINE_POWER", length = 100)
+    private String enginePower;
+
+    @Column(name = "MANUFACTURER", length = 100)
+    private String manufacturer;
+
+    @Column(name = "MODEL", length = 100)
+    private String model;
+
+    @Column(name = "FUEL", length = 100)
+    private String fuel;
+
     @Column(name = "CREATED_AT")
     @Type(type="timestamp")
     private Date createdAt;
@@ -68,6 +98,86 @@ public class Car {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPhones() {
+        return phones;
+    }
+
+    public void setPhones(String phones) {
+        this.phones = phones;
+    }
+
+    public String getYearProduction() {
+        return yearProduction;
+    }
+
+    public void setYearProduction(String yearProduction) {
+        this.yearProduction = yearProduction;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getEngineCapacity() {
+        return engineCapacity;
+    }
+
+    public void setEngineCapacity(String engineCapacity) {
+        this.engineCapacity = engineCapacity;
+    }
+
+    public String getEngineModel() {
+        return engineModel;
+    }
+
+    public void setEngineModel(String engineModel) {
+        this.engineModel = engineModel;
+    }
+
+    public String getEnginePower() {
+        return enginePower;
+    }
+
+    public void setEnginePower(String enginePower) {
+        this.enginePower = enginePower;
+    }
+
+    public String getFuel() {
+        return fuel;
+    }
+
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getRegistrationNumber() {

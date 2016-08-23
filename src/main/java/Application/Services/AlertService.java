@@ -2,6 +2,8 @@ package Application.Services;
 
 import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,14 +21,16 @@ public class AlertService {
 
     /**
      * Show alert dialog
-     *
-     * @param header for alert
+
      * @param content dor alert
+     * @param iconPath for alert
      */
-    public static void warning(String header, String content){
+    public static void warning(String content, String iconPath){
         Alert alert = new javafx.scene.control.Alert(Alert.AlertType.WARNING);
         alert.setTitle(resourceBundle.getString("alert.warning"));
-        alert.setHeaderText(header);
+        alert.setHeaderText(null);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(AlertService.class.getResourceAsStream(iconPath)));
         alert.setContentText(content);
         alert.showAndWait();
     }

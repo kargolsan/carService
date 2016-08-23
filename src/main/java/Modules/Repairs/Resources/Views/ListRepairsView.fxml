@@ -22,8 +22,8 @@
                       <TableColumn id="note" fx:id="note" editable="false" prefWidth="110.0" text="%tab.list_repairs.table_view.note" />
                       <TableColumn id="carId" fx:id="carId" editable="false" maxWidth="50.0" prefWidth="30.0" text="%tab.list_repairs.table_view.car_id" visible="false" />
                       <TableColumn id="carRegistrationNumber" fx:id="carRegistrationNumber" editable="false" maxWidth="150.0" prefWidth="130.0" text="%tab.list_repairs.table_view.car_registration_number" />
-                      <TableColumn id="createdAt" fx:id="createdAt" editable="false" prefWidth="110.0" text="Created at" />
-                      <TableColumn id="updatedAt" fx:id="updatedAt" editable="false" prefWidth="110.0" text="Updated at" />
+                      <TableColumn id="createdAt" fx:id="createdAt" editable="false" prefWidth="110.0" text="%tab.list_repairs.table_view.created_at" />
+                      <TableColumn id="updatedAt" fx:id="updatedAt" editable="false" prefWidth="110.0" text="%tab.list_repairs.table_view.updated_at" />
                   </columns>
                   <contextMenu>
                       <ContextMenu onShowing="#showingContextMenu">

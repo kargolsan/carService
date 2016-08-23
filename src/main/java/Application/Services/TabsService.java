@@ -2,11 +2,15 @@ package Application.Services;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.Tab;
 import java.util.ResourceBundle;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import Application.Interfaces.IControllerTab;
+import javafx.scene.layout.HBox;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,18 +43,34 @@ public class TabsService {
         Tab lastTab = tabPane.getSelectionModel().getSelectedItem();
         try {
             ResourceBundle resourceBundle = LanguageService.getResourceBundle(resourceBundlePath);
-
             FXMLLoader loader = new FXMLLoader(TabsService.class.getResource(pathView), resourceBundle);
             AnchorPane anchorPane = loader.load();
             Tab tab = new Tab();
             IControllerTab controller = loader.getController();
             controller.loaded(options, tab, lastTab);
             tab.setContent(anchorPane);
-            tab.setId("tab");
+            //tab = setIconTab(tab, icon);
             tabPane.getTabs().add(tab);
             tabPane.getSelectionModel().select(tab);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Set icon for tab
+     *
+     * @param tab for icon
+     * @param icon for tab
+     */
+    public static void setIcon(Tab tab, String icon){
+        HBox hbox = new HBox();
+        hbox.setPadding(new Insets(0, 3, 0, 0));
+        ImageView imageView = new ImageView(new Image(TabsService.class.getResource(icon).toExternalForm()));
+        imageView.setPickOnBounds(true);
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(18);
+        hbox.getChildren().add(imageView);
+        tab.setGraphic(hbox);
     }
 }

@@ -35,6 +35,36 @@ public class AddCarController implements Initializable, IControllerTab {
     private TextField registrationNumber;
 
     @FXML
+    private TextField user;
+
+    @FXML
+    private TextField phones;
+
+    @FXML
+    private TextField yearProduction;
+
+    @FXML
+    private TextField body;
+
+    @FXML
+    private TextField engineCapacity;
+
+    @FXML
+    private TextField engineModel;
+
+    @FXML
+    private TextField enginePower;
+
+    @FXML
+    private TextField fuel;
+
+    @FXML
+    private TextField manufacturer;
+
+    @FXML
+    private TextField model;
+
+    @FXML
     private TextField vin;
 
     @FXML
@@ -42,6 +72,9 @@ public class AddCarController implements Initializable, IControllerTab {
 
     /** Path to language of main stage */
     private static final String LANGUAGE = "Modules/Cars/Resources/Languages/cars";
+
+    /** Path to icon of tab */
+    private static final String ICON = "/Modules/Cars/Resources/Assets/Images/Icons/add_20.png";
 
     /** Set resource bundle */
     private ResourceBundle resourceBundle = LanguageService.getResourceBundle(LANGUAGE);
@@ -86,10 +119,28 @@ public class AddCarController implements Initializable, IControllerTab {
     public void add(){
         Car car = new Car();
         car.setRegistrationNumber(registrationNumber.getText());
+        car.setUser(user.getText());
+        car.setPhones(phones.getText());
+        car.setYearProduction(yearProduction.getText());
+        car.setBody(body.getText());
+        car.setEngineCapacity(engineCapacity.getText());
+        car.setEngineModel(engineModel.getText());
+        car.setEnginePower(enginePower.getText());
+        car.setFuel(fuel.getText());
+        car.setManufacturer(manufacturer.getText());
+        car.setModel(model.getText());
         car.setVin(vin.getText());
         car.setNote(note.getText());
         car = CarRepository.add(car);
         ListCarsController.cars.add(0, car);
+        close();
+    }
+
+    /**
+     * Cancel from view
+     */
+    @FXML
+    public void cancel(){
         close();
     }
 
@@ -108,6 +159,7 @@ public class AddCarController implements Initializable, IControllerTab {
         this.tab = tab;
         this.lastTab = lastTab;
         this.tab.setText(resourceBundle.getString("tab.add_car.title"));
+        TabsService.setIcon(this.tab, ICON);
     }
 }
 
