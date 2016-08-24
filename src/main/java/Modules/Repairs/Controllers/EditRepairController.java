@@ -2,19 +2,29 @@ package Modules.Repairs.Controllers;
 
 import java.net.URL;
 import java.sql.Date;
+
+import Modules.Repairs.Controllers.Items.PartsController;
+import Modules.Repairs.Controllers.Items.ServicesController;
+import Modules.Repairs.Models.Part;
+import Modules.Repairs.Models.Service;
+import Modules.Repairs.Services.PricesService;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+
 import java.time.ZoneId;
 import java.time.LocalDate;
+
 import Modules.Cars.Models.Car;
+
+import java.util.HashSet;
 import java.util.ResourceBundle;
-import javafx.scene.control.Tab;
+
+import javafx.scene.control.*;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import Modules.Repairs.Models.Repair;
 import Modules.Cars.Stages.AssignCar;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.DatePicker;
 import Application.Services.TabsService;
 import Application.Services.LanguageService;
 import Application.Interfaces.IControllerTab;
@@ -29,11 +39,27 @@ import Modules.Repairs.Repositories.RepairRepository;
  */
 public class EditRepairController implements Initializable, IControllerTab {
 
-    /** tab of this controller */
+    /**
+     * tab of this controller
+     */
     private Tab tab;
 
-    /** last opened tab */
+    /**
+     * last opened tab
+     */
     private Tab lastTab;
+
+    /**
+     * services for add repair
+     */
+    @FXML
+    private ServicesController servicesController;
+
+    /**
+     * parts for add repair
+     */
+    @FXML
+    private PartsController partsController;
 
     @FXML
     private AnchorPane root;
@@ -50,26 +76,50 @@ public class EditRepairController implements Initializable, IControllerTab {
     @FXML
     private Label infoAssignCar;
 
-    /** editable repair */
+    @FXML
+    private Label totalWithoutTax;
+
+    @FXML
+    private Label totalTax;
+
+    @FXML
+    private Label totalWithTax;
+
+    @FXML
+    private Label totalToPayWithTax;
+
+    @FXML
+    private TextField deposit;
+
+    /**
+     * editable repair
+     */
     private Repair repair;
 
-    /** Assign car to repair */
+    /**
+     * Assign car to repair
+     */
     private Car assignCar;
 
-    /** Path to language of main stage */
+    /**
+     * Path to language of main stage
+     */
     private static final String LANGUAGE = "Modules/Repairs/Resources/Languages/repairs";
 
-    /** Path to icon of tab */
+    /**
+     * Path to icon of tab
+     */
     private static final String ICON = "/Modules/Repairs/Resources/Assets/Images/Icons/edit_20.png";
 
-    /** Set resource bundle */
+    /**
+     * Set resource bundle
+     */
     private ResourceBundle resourceBundle = LanguageService.getResourceBundle(LANGUAGE);
 
     /**
      * Constructor
      */
-    public EditRepairController()
-    {
+    public EditRepairController() {
 
     }
 
@@ -89,49 +139,81 @@ public class EditRepairController implements Initializable, IControllerTab {
     /**
      * loaded after initialized controller
      *
-     * @param repair for controller
-     * @param tab of controller
+     * @param repairId  for controller
+     * @param tab     of controller
      * @param lastTab opened
      */
     @Override
-    public void loaded(Object repair, Tab tab, Tab lastTab) {
-        this.repair = (Repair) repair;
+    public void loaded(Object repairId, Tab tab, Tab lastTab) {
+        this.repair = RepairRepository.get((Long) repairId);
         configurationTab(this.repair, tab, lastTab);
 
-        if (this.repair.getDateStart() != null){
+        if (this.repair.getDateStart() != null) {
             dateStart.setValue(this.repair.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         }
-        if (this.repair.getDateEnd() != null){
+        if (this.repair.getDateEnd() != null) {
             dateEnd.setValue(this.repair.getDateEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         }
         note.setText(this.repair.getNote());
-        if (this.repair.getCarId() != null){
+        if (this.repair.getCarId() != null) {
             assignCar = CarRepository.get(this.repair.getCarId());
         }
-        if (assignCar != null){
+        if (this.repair.getServices().size() > 0) {
+            servicesController.services.addAll(this.repair.getServices());
+        }
+        if (this.repair.getParts().size() > 0) {
+            partsController.parts.addAll(this.repair.getParts());
+        }
+        if (assignCar != null) {
             setInfoAssignCar();
         }
+
+        partsController.propertyTotalWithTax.addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                setPricesTotal();
+            }
+        });
+        servicesController.propertyTotalWithTax.addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                setPricesTotal();
+            }
+        });
+        deposit.textProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                setPricesTotal();
+            }
+        });
+        setPricesTotal();
     }
 
     /**
      * Add repair to database
      */
     @FXML
-    public void update(){
+    public void update() {
         LocalDate dateStartValue = dateStart.getValue();
         LocalDate dateEndValue = dateEnd.getValue();
-        if (dateStartValue != null){
+        if (dateStartValue != null) {
             repair.setDateStart(Date.valueOf(dateStartValue));
         }
-        if (dateEndValue != null){
+        if (dateEndValue != null) {
             repair.setDateEnd(Date.valueOf(dateEndValue));
         }
-        if (assignCar != null){
+
+        repair.setParts(new HashSet<Part>(partsController.parts));
+        repair.setServices(new HashSet<Service>(servicesController.services));
+
+        if (assignCar != null) {
             repair.setCarId(assignCar.getId());
         }
         repair.setNote(note.getText());
         RepairRepository.update(repair);
-        ListRepairsController.repairs.set(ListRepairsController.repairs.indexOf(repair), repair);
+
+        Repair repairInList = ListRepairsController.repairs.stream().filter(p -> p.getId() == repair.getId()).findFirst().get();
+        ListRepairsController.repairs.set(ListRepairsController.repairs.indexOf(repairInList), repair);
         close();
     }
 
@@ -139,9 +221,9 @@ public class EditRepairController implements Initializable, IControllerTab {
      * Assign car to repair
      */
     @FXML
-    public void assignCar(){
+    public void assignCar() {
         assignCar = AssignCar.showDialog();
-        if (assignCar != null){
+        if (assignCar != null) {
             setInfoAssignCar();
         }
     }
@@ -150,14 +232,14 @@ public class EditRepairController implements Initializable, IControllerTab {
      * Cancel from view
      */
     @FXML
-    public void cancel(){
+    public void cancel() {
         close();
     }
 
     /**
      * Close tab
      */
-    public void close(){
+    public void close() {
         TabsService.tabPane.getTabs().remove(tab);
         TabsService.tabPane.getSelectionModel().select(lastTab);
     }
@@ -172,10 +254,17 @@ public class EditRepairController implements Initializable, IControllerTab {
     /**
      * Configuration tab
      */
-    private void configurationTab(Repair repair, Tab tab, Tab lastTab){
+    private void configurationTab(Repair repair, Tab tab, Tab lastTab) {
         this.tab = tab;
         this.lastTab = lastTab;
         this.tab.setText(String.format(resourceBundle.getString("tab.edit_repair.title"), repair.getId()));
         TabsService.setIcon(this.tab, ICON);
+    }
+
+    /**
+     * Set prices total for parts and services
+     */
+    public void setPricesTotal() {
+        PricesService.calculationTotalPrices(partsController, servicesController, deposit, totalWithoutTax, totalTax, totalWithTax, totalToPayWithTax);
     }
 }

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<VBox alignment="CENTER" maxWidth="400.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.Items.ServicesController">
+    <children>
+        <HBox spacing="10.0">
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="%tab.add_repair.services.label.title">
+                            <font>
+                                <Font name="System Bold" size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#add" text="%tab.add_repair.services.button.add"/>
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+        <TableView fx:id="tableServices" id="tableServices" focusTraversable="false" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn id="id" fx:id="id" editable="false" maxWidth="50.0" prefWidth="30.0" text="%tab.repair.services.table_view.id" />
+                <TableColumn id="name" fx:id="name" editable="false" prefWidth="170.0" text="%tab.repair.services.table_view.name" />
+                <TableColumn id="mechanic" fx:id="mechanic" editable="false" prefWidth="120.0" text="%tab.repair.services.table_view.mechanic" />
+                <TableColumn id="quantity" fx:id="quantity" editable="false" prefWidth="50.0" text="%tab.repair.services.table_view.quantity" />
+                <TableColumn id="priceWithoutTax" fx:id="priceWithoutTax" editable="false" prefWidth="100.0" text="%tab.repair.services.table_view.price_without_tax" />
+                <TableColumn id="taxPercentage" fx:id="taxPercentage" editable="false" prefWidth="70.0" text="%tab.repair.services.table_view.tax" />
+                <TableColumn id="note" fx:id="note" editable="false" prefWidth="140.0" text="%tab.repair.services.table_view.note" />
+                <TableColumn id="createdAt" fx:id="createdAt" editable="false" prefWidth="175.0" text="%tab.repair.services.table_view.created_at" />
+                <TableColumn id="updatedAt" fx:id="updatedAt" editable="false" prefWidth="110.0" text="%tab.repair.services.table_view.updated_at" />
+            </columns>
+            <contextMenu>
+                <ContextMenu onShowing="#showingContextMenu">
+                    <items>
+                        <MenuItem fx:id="edit" mnemonicParsing="false" onAction="#edit">
+                            <graphic>
+                                <HBox alignment="CENTER" spacing="9.0">
+                                    <children>
+                                        <ImageView fitHeight="16.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../Assets/Images/Icons/edit_20.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="%tab.repair.services.table_view.context_menu.edit" />
+                                    </children>
+                                </HBox>
+                            </graphic></MenuItem>
+                        <MenuItem fx:id="delete" mnemonicParsing="false" onAction="#delete">
+                            <graphic>
+                                <HBox alignment="CENTER" spacing="9.0">
+                                    <children>
+                                        <ImageView fitHeight="16.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #000000;">
+                                            <image>
+                                                <Image url="@../../Assets/Images/Icons/trash_20.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Label text="%tab.repair.services.table_view.context_menu.delete" />
+                                    </children>
+                                </HBox>
+                            </graphic>
+                        </MenuItem>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TableView>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="254.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="146.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label alignment="TOP_LEFT" text="%tab.repair.prices.label.total_price_without_tax" GridPane.halignment="RIGHT">
+                    <GridPane.margin>
+                        <Insets right="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label fx:id="totalWithoutTax" alignment="TOP_LEFT" text="0" GridPane.columnIndex="1">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label alignment="TOP_LEFT" text="%tab.repair.prices.label.total_tax" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets right="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label fx:id="totalTax" alignment="TOP_LEFT" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label alignment="TOP_LEFT" text="%tab.repair.prices.label.total_price_with_tax" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="10.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label fx:id="totalWithTax" alignment="TOP_LEFT" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" />
+            </VBox.margin>
+        </GridPane>
+    </children>
+</VBox>

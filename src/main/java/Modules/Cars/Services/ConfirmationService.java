@@ -25,7 +25,7 @@ public class ConfirmationService {
      *
      * @return true if can, false if can not
      */
-    public static Boolean confirmDelete(ResourceBundle resourceBundle){
+    public static Boolean confirmDeleteCar(ResourceBundle resourceBundle){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(resourceBundle.getString("list_car_controller.confirm.confirmation"));
         alert.setHeaderText(null);

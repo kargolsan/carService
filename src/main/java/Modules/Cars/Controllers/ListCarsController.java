@@ -2,11 +2,6 @@ package Modules.Cars.Controllers;
 
 import java.util.*;
 import java.net.URL;
-
-import Modules.Cars.Services.CellsService;
-import Modules.Cars.Services.FilterService;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import Modules.Cars.Models.Car;
@@ -17,6 +12,7 @@ import Application.Services.TabsService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Application.Services.AlertService;
+import Modules.Cars.Services.FilterService;
 import Application.Services.LanguageService;
 import Application.Interfaces.IControllerTab;
 import Modules.Cars.Repositories.CarRepository;
@@ -220,7 +216,7 @@ public class ListCarsController implements Initializable, IControllerTab {
         TabsService.addTab(
                 "/Modules/Cars/Resources/Views/EditCarView.fxml",
                 "Modules/Cars/Resources/Languages/cars",
-                tableCars.getSelectionModel().getSelectedItem()
+                tableCars.getSelectionModel().getSelectedItem().getId()
         );
     }
 
@@ -241,7 +237,7 @@ public class ListCarsController implements Initializable, IControllerTab {
      */
     @FXML
     private void delete() {
-        if (!ConfirmationService.confirmDelete(resourceBundle)) {
+        if (!ConfirmationService.confirmDeleteCar(resourceBundle)) {
             return;
         }
         Car car = tableCars.getSelectionModel().getSelectedItem();

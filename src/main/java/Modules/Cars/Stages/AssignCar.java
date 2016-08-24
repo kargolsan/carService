@@ -8,7 +8,7 @@ import Modules.Cars.Models.Car;
 import Application.Stages.Main;
 import javafx.scene.layout.VBox;
 import Application.Services.LanguageService;
-import Application.Services.StageDialogService;
+import Application.Classes.StageDialog;
 
 import java.util.ResourceBundle;
 
@@ -42,7 +42,7 @@ public class AssignCar {
         try {
             VBox page = FXMLLoader.load(AssignCar.class.getClass().getResource(VIEW), resourceBundle);
             Scene scene = new Scene(page);
-            StageDialogService stage = new StageDialogService();
+            StageDialog stage = new StageDialog();
             stage.setScene(scene);
             stage.setTitle(resourceBundle.getString("tab.car_assign.title"));
             stage.initModality(Modality.APPLICATION_MODAL);

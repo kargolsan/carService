@@ -1,10 +1,13 @@
 package Modules.Cars.Controllers;
 
 import java.net.URL;
+
 import javafx.fxml.FXML;
 import Modules.Cars.Models.Car;
 import javafx.scene.control.Tab;
+
 import java.util.ResourceBundle;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -106,13 +109,13 @@ public class EditCarController implements Initializable, IControllerTab {
     /**
      * loaded after initialized controller
      *
-     * @param car for controller
+     * @param carId for controller
      * @param tab of controller
      * @param lastTab opened
      */
     @Override
-    public void loaded(Object car, Tab tab, Tab lastTab) {
-        this.car = (Car)car;
+    public void loaded(Object carId, Tab tab, Tab lastTab) {
+        this.car = CarRepository.get((Long) carId);
         configurationTab(this.car, tab, lastTab);
         registrationNumber.setText(this.car.getRegistrationNumber());
         user.setText(this.car.getUser());
@@ -148,7 +151,9 @@ public class EditCarController implements Initializable, IControllerTab {
         car.setVin(vin.getText());
         car.setNote(note.getText());
         CarRepository.update(car);
-        ListCarsController.cars.set(ListCarsController.cars.indexOf(car), car);
+
+        Car carInList = ListCarsController.cars.stream().filter(p -> p.getId() == car.getId()).findFirst().get();
+        ListCarsController.cars.set(ListCarsController.cars.indexOf(carInList), car);
         close();
     }
 

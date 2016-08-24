@@ -1,7 +1,9 @@
 package Database.Services;
 
 import Modules.Cars.Models.Car;
+import Modules.Repairs.Models.Part;
 import Modules.Repairs.Models.Repair;
+import Modules.Repairs.Models.Service;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -31,6 +33,8 @@ public class ConfigurationService {
                 .setProperty("hibernate.current_session_context_class", "thread")
                 .setProperty("cache.provider_class", "org.hibernate.cache.NoCacheProvider")
                 .addAnnotatedClass(Car.class)
-                .addAnnotatedClass(Repair.class);
+                .addAnnotatedClass(Repair.class)
+                .addAnnotatedClass(Part.class)
+                .addAnnotatedClass(Service.class);
     }
 }

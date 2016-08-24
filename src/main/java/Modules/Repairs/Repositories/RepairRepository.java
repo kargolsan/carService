@@ -2,6 +2,9 @@ package Modules.Repairs.Repositories;
 
 import java.util.List;
 import java.util.Date;
+
+import Modules.Repairs.Models.Part;
+import Modules.Repairs.Models.Service;
 import org.hibernate.Session;
 import java.util.Collections;
 import org.hibernate.Transaction;

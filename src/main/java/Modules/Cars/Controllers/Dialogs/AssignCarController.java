@@ -2,21 +2,18 @@ package Modules.Cars.Controllers.Dialogs;
 
 import java.net.URL;
 import java.util.Date;
-
-import Modules.Cars.Services.FilterService;
 import javafx.fxml.FXML;
-import Modules.Cars.Models.Car;
 import javafx.scene.control.*;
+import Modules.Cars.Models.Car;
 import javafx.scene.layout.VBox;
-
 import java.util.ResourceBundle;
-
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import Modules.Cars.Services.FilterService;
 import Application.Interfaces.IControllerTab;
 import Modules.Cars.Repositories.CarRepository;
-import Application.Services.StageDialogService;
+import Application.Classes.StageDialog;
 import Modules.Cars.Services.CellValueFactoryService;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -188,7 +185,7 @@ public class AssignCarController implements Initializable, IControllerTab {
      * Close stage
      */
     private void close() {
-        StageDialogService stage = (StageDialogService) root.getScene().getWindow();
+        StageDialog stage = (StageDialog) root.getScene().getWindow();
         stage.setResult(result);
         stage.close();
     }

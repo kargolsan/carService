@@ -25,11 +25,51 @@ public class ConfirmationService {
      *
      * @return true if can, false if can not
      */
-    public static Boolean confirmDelete(ResourceBundle resourceBundle){
+    public static Boolean confirmDeleteRepair(ResourceBundle resourceBundle){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(resourceBundle.getString("list_repairs_controller.confirm.confirmation"));
         alert.setHeaderText(null);
         alert.setContentText(resourceBundle.getString("list_repairs_controller.confirm.are_you_sure_delete_repair"));
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(AlertService.class.getResourceAsStream(ICON_TRASH)));
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Confirm delete the part
+     *
+     * @return true if can, false if can not
+     */
+    public static Boolean confirmDeletePart(ResourceBundle resourceBundle){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(resourceBundle.getString("alert.confirmation.title"));
+        alert.setHeaderText(null);
+        alert.setContentText(resourceBundle.getString("alert.confirmation.are_you_sure_delete_part"));
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(AlertService.class.getResourceAsStream(ICON_TRASH)));
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Confirm delete the service
+     *
+     * @return true if can, false if can not
+     */
+    public static Boolean confirmDeleteService(ResourceBundle resourceBundle){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(resourceBundle.getString("alert.confirmation.title"));
+        alert.setHeaderText(null);
+        alert.setContentText(resourceBundle.getString("alert.confirmation.are_you_sure_delete_service"));
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(AlertService.class.getResourceAsStream(ICON_TRASH)));
         Optional<ButtonType> result = alert.showAndWait();

@@ -1,6 +1,7 @@
 package Modules.Repairs.Models;
 
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.GenericGenerator;
@@ -46,6 +47,18 @@ public class Repair {
     @Column(name = "UPDATED_AT")
     @Type(type = "timestamp")
     private Date updatedAt;
+
+    /** parts of repair */
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinTable(
+            joinColumns=@JoinColumn(name="ID"))
+    private Set<Part> parts;
+
+    /** services of repair */
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinTable(
+            joinColumns=@JoinColumn(name="ID"))
+    private Set<Service> services;
 
     public Long getId() {
         return id;
@@ -101,5 +114,21 @@ public class Repair {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Part> getParts() {
+        return parts;
+    }
+
+    public void setParts(Set<Part> parts) {
+        this.parts = parts;
+    }
+
+    public Set<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(Set<Service> services) {
+        this.services = services;
     }
 }

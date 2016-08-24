@@ -2,8 +2,6 @@ package Modules.Repairs.Controllers;
 
 import java.net.URL;
 import java.util.Date;
-
-import Modules.Repairs.Services.FilterService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.WindowEvent;
@@ -15,6 +13,7 @@ import Application.Services.TabsService;
 import javafx.collections.ObservableList;
 import Application.Services.LanguageService;
 import Application.Interfaces.IControllerTab;
+import Modules.Repairs.Services.FilterService;
 import Modules.Repairs.Services.ConfirmationService;
 import Modules.Repairs.Repositories.RepairRepository;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -167,7 +166,7 @@ public class ListRepairsController implements Initializable, IControllerTab {
         TabsService.addTab(
                 "/Modules/Repairs/Resources/Views/EditRepairView.fxml",
                 "Modules/Repairs/Resources/Languages/repairs",
-                tableRepairs.getSelectionModel().getSelectedItem()
+                tableRepairs.getSelectionModel().getSelectedItem().getId()
         );
     }
 
@@ -189,7 +188,7 @@ public class ListRepairsController implements Initializable, IControllerTab {
     @FXML
     private void delete()
     {
-        if (!ConfirmationService.confirmDelete(resourceBundle)) { return; }
+        if (!ConfirmationService.confirmDeleteRepair(resourceBundle)) { return; }
         Repair repair = tableRepairs.getSelectionModel().getSelectedItem();
         Boolean result = RepairRepository.delete(repair.getId());
         if (result){
