@@ -54,6 +54,9 @@ public class AddRepairController implements Initializable, IControllerTab {
     /** Path to language of main stage */
     private static final String LANGUAGE = "Modules/Repairs/Resources/Languages/repairs";
 
+    /** Path to icon of tab */
+    private static final String ICON = "/Modules/Repairs/Resources/Assets/Images/Icons/add_20.png";
+
     /** Set resource bundle */
     private ResourceBundle resourceBundle = LanguageService.getResourceBundle(LANGUAGE);
 
@@ -125,6 +128,14 @@ public class AddRepairController implements Initializable, IControllerTab {
     }
 
     /**
+     * Cancel from view
+     */
+    @FXML
+    public void cancel(){
+        close();
+    }
+
+    /**
      * Close tab
      */
     public void close(){
@@ -139,5 +150,6 @@ public class AddRepairController implements Initializable, IControllerTab {
         this.tab = tab;
         this.lastTab = lastTab;
         this.tab.setText(resourceBundle.getString("tab.add_repair.title"));
+        TabsService.setIcon(this.tab, ICON);
     }
 }

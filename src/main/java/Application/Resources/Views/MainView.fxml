@@ -16,30 +16,7 @@
             <children>
                 <TabPane id="tabPane" fx:id="tabPane" focusTraversable="false" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
-                  <Tab text="Untitled Tab">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                     <graphic>
-                        <HBox>
-                           <children>
-                              <ImageView fitHeight="18.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Assets/Images/Icons/app.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <padding>
-                              <Insets right="3.0" />
-                           </padding>
-                        </HBox>
-                     </graphic>
-                  </Tab>
-                  <Tab text="Untitled Tab">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                  </Tab>
+
                </tabs>
                 </TabPane>
             </children>

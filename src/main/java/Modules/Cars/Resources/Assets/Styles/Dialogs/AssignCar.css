@@ -1,7 +1,3 @@
-#root {
-    -fx-background-color: #f4f4f4;
-}
-
 .table-view .table-cell{
     -fx-padding: 3 3 3 3;
 }

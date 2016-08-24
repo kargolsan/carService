@@ -19,21 +19,21 @@
          <children>
               <TableView id="tableCars" fx:id="tableCars" focusTraversable="false" prefHeight="262.0" prefWidth="443.0" VBox.vgrow="ALWAYS">
                   <columns>
-                      <TableColumn id="id" fx:id="id" editable="false" maxWidth="50.0" prefWidth="30.0" text="%tab.list_cars.table_view.id" />
-                      <TableColumn id="vin" fx:id="vin" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.vin" />
-                      <TableColumn id="note" fx:id="note" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.note" />
                       <TableColumn id="registrationNumber" fx:id="registrationNumber" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.registration_number" />
-                      <TableColumn id="user" fx:id="user" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.user" />
-                      <TableColumn id="phones" fx:id="phones" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.phones" />
-                      <TableColumn id="yearProduction" fx:id="yearProduction" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.year_production" />
-                      <TableColumn id="body" fx:id="body" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.body" />
+                      <TableColumn id="manufacturer" fx:id="manufacturer" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.manufacturer" />
+                      <TableColumn id="model" fx:id="model" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.model" />
+                      <TableColumn id="yearProduction" fx:id="yearProduction" editable="false" prefWidth="60.0" text="%tab.list_cars.table_view.year_production" />
                       <TableColumn id="engineCapacity" fx:id="engineCapacity" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.engine_capacity" />
                       <TableColumn id="engineModel" fx:id="engineModel" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.engine_model" />
                       <TableColumn id="enginePower" fx:id="enginePower" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.engine_power" />
+                      <TableColumn id="note" fx:id="note" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.note" />
+                      <TableColumn id="vin" fx:id="vin" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.vin" />
+                      <TableColumn id="user" fx:id="user" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.user" />
+                      <TableColumn id="phones" fx:id="phones" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.phones" />
+                      <TableColumn id="body" fx:id="body" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.body" />
                       <TableColumn id="fuel" fx:id="fuel" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.fuel" />
-                      <TableColumn id="manufacturer" fx:id="manufacturer" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.manufacturer" />
-                      <TableColumn id="model" fx:id="model" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.model" />
-                      <TableColumn id="createdAt" fx:id="createdAt" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.created_at" />
+                      <TableColumn id="id" fx:id="id" editable="false" maxWidth="50.0" prefWidth="30.0" text="%tab.list_cars.table_view.id" />
+                      <TableColumn id="createdAt" fx:id="createdAt" editable="false" prefWidth="135.0" text="%tab.list_cars.table_view.created_at" />
                       <TableColumn id="updatedAt" fx:id="updatedAt" editable="false" prefWidth="110.0" text="%tab.list_cars.table_view.updated_at" />
                   </columns>
                   <contextMenu>

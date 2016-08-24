@@ -97,8 +97,8 @@ public class ListRepairsController implements Initializable, IControllerTab {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         id.setCellValueFactory(new PropertyValueFactory("id"));
-        dateStart.setCellValueFactory(new PropertyValueFactory("dateStart"));
-        dateEnd.setCellValueFactory(new PropertyValueFactory("dateEnd"));
+        dateStart.setCellValueFactory(new CellValueFactoryService().propertyDateStartFactory());
+        dateEnd.setCellValueFactory(new CellValueFactoryService().propertyDateEndFactory());
         note.setCellValueFactory(new PropertyValueFactory("note"));
         carId.setCellValueFactory(new PropertyValueFactory("carId"));
         carRegistrationNumber.setCellValueFactory(new CellValueFactoryService().propertyRegistrationNumberFactory());
@@ -117,6 +117,15 @@ public class ListRepairsController implements Initializable, IControllerTab {
     @Override
     public void loaded(Object options, Tab tab, Tab lastTab) {
         configurationTab(tab, lastTab);
+    }
+
+    /**
+     * Cancel view
+     */
+    @FXML
+    public void cancel(){
+        TabsService.tabPane.getTabs().remove(tab);
+        TabsService.tabPane.getSelectionModel().select(lastTab);
     }
 
     /**

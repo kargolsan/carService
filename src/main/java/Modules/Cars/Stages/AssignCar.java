@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import Application.Services.LanguageService;
 import Application.Services.StageDialogService;
 
+import java.util.ResourceBundle;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Karol Golec
@@ -27,6 +29,9 @@ public class AssignCar {
     /** Icon of stage */
     private static final String ICON = "/Application/Resources/Assets/Images/Icons/app.png";
 
+    /** Set resource bundle */
+    private static ResourceBundle resourceBundle = LanguageService.getResourceBundle(LANGUAGE);
+
     /**
      * Show dialog in application
      *
@@ -35,10 +40,11 @@ public class AssignCar {
     public static Car showDialog() {
         Car result = null;
         try {
-            VBox page = FXMLLoader.load(AssignCar.class.getClass().getResource(VIEW), LanguageService.getResourceBundle(LANGUAGE));
+            VBox page = FXMLLoader.load(AssignCar.class.getClass().getResource(VIEW), resourceBundle);
             Scene scene = new Scene(page);
             StageDialogService stage = new StageDialogService();
             stage.setScene(scene);
+            stage.setTitle(resourceBundle.getString("tab.car_assign.title"));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(Main.getStage());
             stage.getIcons().add(new Image(AssignCar.class.getResourceAsStream(ICON)));

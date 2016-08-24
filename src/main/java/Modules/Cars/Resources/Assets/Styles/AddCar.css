@@ -1,3 +1,7 @@
 #root {
     -fx-background-color: #f4f4f4;
 }
+
+Button {
+    -fx-base: #f4f4f4;
+}

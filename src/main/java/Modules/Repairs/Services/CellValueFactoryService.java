@@ -1,6 +1,8 @@
 package Modules.Repairs.Services;
 
 import java.util.Date;
+
+import Modules.Cars.Models.Car;
 import javafx.util.Callback;
 import java.text.SimpleDateFormat;
 import Modules.Repairs.Models.Repair;
@@ -50,6 +52,48 @@ public class CellValueFactoryService {
 
                 if (data != null) {
                     result = formatter.format(repair.getValue().getCreatedAt());
+                }
+                return new ReadOnlyObjectWrapper(result);
+            }
+        };
+    }
+
+    /**
+     * Factory value for date start of repair
+     *
+     * @return value factory
+     */
+    public Callback<TableColumn.CellDataFeatures<Repair, Date>, ObservableValue<Date>> propertyDateStartFactory(){
+        return new Callback<TableColumn.CellDataFeatures<Repair, Date>, ObservableValue<Date>>() {
+            public ObservableValue<Date> call(TableColumn.CellDataFeatures<Repair, Date> repair) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
+
+                Date data = repair.getValue().getDateStart();
+                String result = null;
+
+                if (data != null) {
+                    result = formatter.format(repair.getValue().getDateStart());
+                }
+                return new ReadOnlyObjectWrapper(result);
+            }
+        };
+    }
+
+    /**
+     * Factory value for date end of repair
+     *
+     * @return value factory
+     */
+    public Callback<TableColumn.CellDataFeatures<Repair, Date>, ObservableValue<Date>> propertyDateEndFactory(){
+        return new Callback<TableColumn.CellDataFeatures<Repair, Date>, ObservableValue<Date>>() {
+            public ObservableValue<Date> call(TableColumn.CellDataFeatures<Repair, Date> repair) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
+
+                Date data = repair.getValue().getDateEnd();
+                String result = null;
+
+                if (data != null) {
+                    result = formatter.format(repair.getValue().getDateEnd());
                 }
                 return new ReadOnlyObjectWrapper(result);
             }
