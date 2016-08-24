@@ -2,6 +2,8 @@ package Modules.Repairs.Controllers;
 
 import java.net.URL;
 import java.util.Date;
+
+import Modules.Repairs.Services.FilterService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.WindowEvent;
@@ -65,6 +67,9 @@ public class ListRepairsController implements Initializable, IControllerTab {
     @FXML
     private MenuItem edit;
 
+    @FXML
+    private TextField wordFilter;
+
     /** Observable list with repairs for table in view */
     public static ObservableList<Repair> repairs;
 
@@ -105,6 +110,8 @@ public class ListRepairsController implements Initializable, IControllerTab {
         createdAt.setCellValueFactory(new CellValueFactoryService().propertyCreatedAtFactory());
         updatedAt.setCellValueFactory(new CellValueFactoryService().propertyUpdatedAtFactory());
         tableRepairs.setItems(repairs);
+
+        addFiltration();
     }
 
     /**
@@ -135,6 +142,13 @@ public class ListRepairsController implements Initializable, IControllerTab {
     public void refresh(){
         repairs.clear();
         repairs.addAll(RepairRepository.sortCreatedAtDesc(RepairRepository.getAll()));
+    }
+
+    /**
+     * Add filtration for cars
+     */
+    private void addFiltration() {
+        FilterService.addFiltration(repairs, wordFilter, tableRepairs);
     }
 
     /**

@@ -13,10 +13,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane id="root" minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="571.0" stylesheets="@../Assets/Styles/ListRepairs.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.ListRepairsController">
     <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+             <HBox alignment="CENTER_LEFT" spacing="10.0">
+                 <children>
+                     <Label text="%tab.list_repairs.label.filtration" />
+                     <TextField fx:id="wordFilter" />
+                 </children>
+                 <padding>
+                     <Insets left="10.0" right="10.0" top="10.0" />
+                 </padding>
+             </HBox>
               <TableView id="tableRepairs" fx:id="tableRepairs" focusTraversable="false" VBox.vgrow="ALWAYS">
                   <columns>
                       <TableColumn id="carRegistrationNumber" fx:id="carRegistrationNumber" editable="false" maxWidth="150.0" prefWidth="130.0" text="%tab.list_repairs.table_view.car_registration_number" />

@@ -24,15 +24,7 @@ public class CellValueFactoryService {
     public Callback<TableColumn.CellDataFeatures<Car, Date>, ObservableValue<Date>> propertyCreatedAtFactory(){
         return new Callback<TableColumn.CellDataFeatures<Car, Date>, ObservableValue<Date>>() {
             public ObservableValue<Date> call(TableColumn.CellDataFeatures<Car, Date> car) {
-                SimpleDateFormat formatter = new SimpleDateFormat("EEEE d MMMM HH:mm yyyy");
-
-                Date data = car.getValue().getCreatedAt();
-                String result = null;
-
-                if (data != null) {
-                    result = formatter.format(car.getValue().getCreatedAt());
-                }
-                return new ReadOnlyObjectWrapper(result);
+                return new ReadOnlyObjectWrapper(CellsService.convertCreatedAt(car.getValue().getCreatedAt()));
             }
         };
     }
@@ -45,15 +37,7 @@ public class CellValueFactoryService {
     public Callback<TableColumn.CellDataFeatures<Car, Date>, ObservableValue<Date>> propertyUpdatedAtFactory(){
         return new Callback<TableColumn.CellDataFeatures<Car, Date>, ObservableValue<Date>>() {
             public ObservableValue<Date> call(TableColumn.CellDataFeatures<Car, Date> car) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-                Date data = car.getValue().getUpdatedAt();
-                String result = null;
-
-                if (data != null) {
-                    result = formatter.format(car.getValue().getUpdatedAt());
-                }
-                return new ReadOnlyObjectWrapper(result);
+                return new ReadOnlyObjectWrapper(CellsService.convertUpdatedAt(car.getValue().getUpdatedAt()));
             }
         };
     }

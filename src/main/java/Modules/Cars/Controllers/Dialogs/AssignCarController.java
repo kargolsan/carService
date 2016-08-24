@@ -3,17 +3,15 @@ package Modules.Cars.Controllers.Dialogs;
 import java.net.URL;
 import java.util.Date;
 
+import Modules.Cars.Services.FilterService;
 import javafx.fxml.FXML;
 import Modules.Cars.Models.Car;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.util.ResourceBundle;
 
-import javafx.scene.control.Tab;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Application.Interfaces.IControllerTab;
@@ -87,6 +85,9 @@ public class AssignCarController implements Initializable, IControllerTab {
     @FXML
     private Button assign;
 
+    @FXML
+    private TextField wordFilter;
+
     /**
      * Observable list with repairs for table in view
      */
@@ -137,6 +138,8 @@ public class AssignCarController implements Initializable, IControllerTab {
                 assign.setDisable(false);
             }
         });
+
+        addFiltration();
     }
 
     /**
@@ -157,6 +160,12 @@ public class AssignCarController implements Initializable, IControllerTab {
         cars.addAll(CarRepository.sortCreatedAtDesc(CarRepository.getAll()));
     }
 
+    /**
+     * Add filtration for cars
+     */
+    private void addFiltration() {
+        FilterService.addFiltration(cars, wordFilter, tableCars);
+    }
 
     /**
      * Accept and exit dialog with result object
