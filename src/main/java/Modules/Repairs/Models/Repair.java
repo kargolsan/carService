@@ -3,6 +3,8 @@ package Modules.Repairs.Models;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
+
+import com.sun.istack.internal.NotNull;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -39,6 +41,11 @@ public class Repair {
 
     @Column(name = "CAR_ID")
     private Long carId;
+
+    @Column(name = "PAID")
+    @Type(type="true_false")
+    @NotNull
+    private Boolean paid;
 
     @Column(name = "CREATED_AT")
     @Type(type = "timestamp")
@@ -98,6 +105,14 @@ public class Repair {
 
     public void setCarId(Long carId) {
         this.carId = carId;
+    }
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 
     public Date getCreatedAt() {

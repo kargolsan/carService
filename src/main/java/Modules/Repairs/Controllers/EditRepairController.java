@@ -91,6 +91,9 @@ public class EditRepairController implements Initializable, IControllerTab {
     @FXML
     private TextField deposit;
 
+    @FXML
+    private CheckBox paid;
+
     /**
      * editable repair
      */
@@ -139,9 +142,9 @@ public class EditRepairController implements Initializable, IControllerTab {
     /**
      * loaded after initialized controller
      *
-     * @param repairId  for controller
-     * @param tab     of controller
-     * @param lastTab opened
+     * @param repairId for controller
+     * @param tab      of controller
+     * @param lastTab  opened
      */
     @Override
     public void loaded(Object repairId, Tab tab, Tab lastTab) {
@@ -163,6 +166,9 @@ public class EditRepairController implements Initializable, IControllerTab {
         }
         if (this.repair.getParts().size() > 0) {
             partsController.parts.addAll(this.repair.getParts());
+        }
+        if (this.repair.getPaid() != null) {
+            paid.setSelected(this.repair.getPaid());
         }
         if (assignCar != null) {
             setInfoAssignCar();
@@ -186,6 +192,12 @@ public class EditRepairController implements Initializable, IControllerTab {
                 setPricesTotal();
             }
         });
+        paid.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+                setPricesTotal();
+            }
+        });
         setPricesTotal();
     }
 
@@ -206,6 +218,7 @@ public class EditRepairController implements Initializable, IControllerTab {
         repair.setParts(new HashSet<Part>(partsController.parts));
         repair.setServices(new HashSet<Service>(servicesController.services));
 
+        repair.setPaid(paid.isSelected());
         if (assignCar != null) {
             repair.setCarId(assignCar.getId());
         }
@@ -226,6 +239,14 @@ public class EditRepairController implements Initializable, IControllerTab {
         if (assignCar != null) {
             setInfoAssignCar();
         }
+    }
+
+    /**
+     * Change paid for repair
+     */
+    @FXML
+    public void paid() {
+
     }
 
     /**
@@ -265,6 +286,6 @@ public class EditRepairController implements Initializable, IControllerTab {
      * Set prices total for parts and services
      */
     public void setPricesTotal() {
-        PricesService.calculationTotalPrices(partsController, servicesController, deposit, totalWithoutTax, totalTax, totalWithTax, totalToPayWithTax);
+        PricesService.calculationTotalPrices(partsController, servicesController, paid, deposit, totalWithoutTax, totalTax, totalWithTax, totalToPayWithTax);
     }
 }

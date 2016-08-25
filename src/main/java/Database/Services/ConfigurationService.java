@@ -28,7 +28,7 @@ public class ConfigurationService {
                 .setProperty("hibernate.connection.username", "CarService")
                 .setProperty("hibernate.connection.password", "CarService")
                 .setProperty("hibernate.connection.pool_size", "5")
-                .setProperty("hibernate.show_sq", "true")
+                .setProperty("hibernate.show_sql", "true")
                 .setProperty("hibernate.hbm2ddl.auto", "update")
                 .setProperty("hibernate.current_session_context_class", "thread")
                 .setProperty("cache.provider_class", "org.hibernate.cache.NoCacheProvider")

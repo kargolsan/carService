@@ -8,6 +8,7 @@ import Modules.Repairs.Models.Service;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -109,13 +110,14 @@ public class PricesService {
      *
      * @param partsController of repair
      * @param servicesController of repair
+     * @param paid is checkbox
      * @param depositField of repair
      * @param totalWithoutTax of label
      * @param totalTax of label
      * @param totalWithTax of label
      * @param totalToPayWithTax of label
      */
-    public static void calculationTotalPrices(PartsController partsController, ServicesController servicesController,
+    public static void calculationTotalPrices(PartsController partsController, ServicesController servicesController, CheckBox paid,
                                               TextField depositField, Label totalWithoutTax, Label totalTax, Label totalWithTax, Label totalToPayWithTax) {
 
         BigDecimal partsTotalWithoutTax = ParseService.tryStringPropertyToBigDecimal(partsController.propertyTotalWithoutTax);
@@ -132,5 +134,8 @@ public class PricesService {
 
         BigDecimal deposit = ParseService.tryStringToBigDecimal(depositField.getText());
         totalToPayWithTax.setText(partsTotalWithTax.add(servicesTotalWithTax).subtract(deposit).toString());
+        if (paid.isSelected()){
+            totalToPayWithTax.setText("0");
+        }
     }
 }

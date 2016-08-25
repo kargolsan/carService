@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.CheckBox?>
 <AnchorPane id="root" fx:id="root" stylesheets="@../Assets/Styles/EditRepair.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Modules.Repairs.Controllers.EditRepairController">
    <children>
       <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -138,6 +139,15 @@
                               </Label>
                            </children>
                         </GridPane>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <CheckBox fx:id="paid" mnemonicParsing="false" onAction="#paid" text="%tab.repair.prices.label.paid">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                   <fx:include fx:id="parts" source="Items/PartsView.fxml" />

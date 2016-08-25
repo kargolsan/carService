@@ -55,6 +55,9 @@ public class ListRepairsController implements Initializable, IControllerTab {
     private TableColumn<Repair, String> carRegistrationNumber;
 
     @FXML
+    private TableColumn<Repair, Boolean> paid;
+
+    @FXML
     private TableColumn<Repair, Date> createdAt;
 
     @FXML
@@ -106,6 +109,7 @@ public class ListRepairsController implements Initializable, IControllerTab {
         note.setCellValueFactory(new PropertyValueFactory("note"));
         carId.setCellValueFactory(new PropertyValueFactory("carId"));
         carRegistrationNumber.setCellValueFactory(new CellValueFactoryService().propertyRegistrationNumberFactory());
+        paid.setCellValueFactory(new CellValueFactoryService().propertyPaidFactory());
         createdAt.setCellValueFactory(new CellValueFactoryService().propertyCreatedAtFactory());
         updatedAt.setCellValueFactory(new CellValueFactoryService().propertyUpdatedAtFactory());
         tableRepairs.setItems(repairs);

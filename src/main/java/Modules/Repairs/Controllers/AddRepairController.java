@@ -93,6 +93,9 @@ public class AddRepairController implements Initializable, IControllerTab {
     @FXML
     private TextField deposit;
 
+    @FXML
+    private CheckBox paid;
+
     /**
      * Assign car to repair
      */
@@ -161,6 +164,12 @@ public class AddRepairController implements Initializable, IControllerTab {
                 setPricesTotal();
             }
         });
+        paid.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
+                setPricesTotal();
+            }
+        });
     }
 
     /**
@@ -180,6 +189,7 @@ public class AddRepairController implements Initializable, IControllerTab {
         if (assignCar != null) {
             repair.setCarId(assignCar.getId());
         }
+        repair.setPaid(paid.isSelected());
         if (partsController.parts.size() > 0) {
             repair.setParts(new HashSet<Part>(partsController.parts));
         }
@@ -201,6 +211,14 @@ public class AddRepairController implements Initializable, IControllerTab {
         if (assignCar != null) {
             infoAssignCar.setText(String.format("%1$s", assignCar.getRegistrationNumber()));
         }
+    }
+
+    /**
+     * Change paid for repair
+     */
+    @FXML
+    public void paid() {
+
     }
 
     /**
@@ -233,6 +251,6 @@ public class AddRepairController implements Initializable, IControllerTab {
      * Set prices total for parts and services
      */
     public void setPricesTotal() {
-        PricesService.calculationTotalPrices(partsController, servicesController, deposit, totalWithoutTax, totalTax, totalWithTax, totalToPayWithTax);
+        PricesService.calculationTotalPrices(partsController, servicesController, paid,  deposit, totalWithoutTax, totalTax, totalWithTax, totalToPayWithTax);
     }
 }
