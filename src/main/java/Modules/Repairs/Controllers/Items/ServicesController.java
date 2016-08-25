@@ -83,7 +83,7 @@ public class ServicesController implements Initializable {
     /**
      * Observable list with repairs for table in view
      */
-    public static ObservableList<Service> services;
+    public ObservableList<Service> services;
 
     /**
      * property of total without tax
@@ -164,6 +164,8 @@ public class ServicesController implements Initializable {
         Service selectService = tableServices.getSelectionModel().getSelectedItem();
         Service service = AddService.showDialog(selectService);
         services.set(services.indexOf(selectService), service);
+        Service serviceInList = services.stream().filter(p -> p.getId() == service.getId()).findFirst().get();
+        services.set(services.indexOf(serviceInList), service);
     }
 
     /**

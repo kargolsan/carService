@@ -81,7 +81,7 @@ public class PartsController implements Initializable {
     private Label totalWithTax;
 
     /** Observable list with repairs for table in view */
-    public static ObservableList<Part> parts;
+    public ObservableList<Part> parts;
 
     /** Path to language of main stage */
     private static final String LANGUAGE = "Modules/Repairs/Resources/Languages/repairs";
@@ -158,6 +158,8 @@ public class PartsController implements Initializable {
         Part selectPart = tableParts.getSelectionModel().getSelectedItem();
         Part part = AddPart.showDialog(selectPart);
         parts.set(parts.indexOf(selectPart), part);
+        Part partInList = parts.stream().filter(p -> p.getId() == part.getId()).findFirst().get();
+        parts.set(parts.indexOf(partInList), part);
     }
 
     /**
