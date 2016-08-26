@@ -3,8 +3,6 @@ package Modules.Repairs.Models;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
-
-import com.sun.istack.internal.NotNull;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -44,7 +42,6 @@ public class Repair {
 
     @Column(name = "PAID")
     @Type(type="true_false")
-    @NotNull
     private Boolean paid;
 
     @Column(name = "CREATED_AT")

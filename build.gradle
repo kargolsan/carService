@@ -1,7 +1,7 @@
 group 'pl.itgolo'
 version '1.0.0'
 
-// define for title of application
+// define variables for application
 def title = 'ITGolo CarService'
 def version = version
 def companyName = 'ITGolo'

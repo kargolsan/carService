@@ -1,6 +1,8 @@
 package Application.Stages;
 
+import Application.Classes.Async;
 import Application.Services.PropertiesService;
+import Database.Services.SessionService;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -37,6 +39,28 @@ public class Main extends Application {
      * @param stage main of application
      */
     public void start(Stage stage) {
+        new Async().run(()->{
+            SessionService.preload();
+        },()->{
+            createStage(stage);
+        });
+    }
+
+    /**
+     * Get stage
+     *
+     * @return stage
+     */
+    public static Stage getStage(){
+        return stage;
+    }
+
+    /**
+     * Create stage of main
+     *
+     * @param stage of main
+     */
+    public void createStage(Stage stage) {
         Main.stage = stage;
         try {
             VBox page = FXMLLoader.load(getClass().getResource(VIEW), LanguageService.getResourceBundle(LANGUAGE));
@@ -48,14 +72,5 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Get stage
-     *
-     * @return stage
-     */
-    public static Stage getStage(){
-        return stage;
     }
 }
