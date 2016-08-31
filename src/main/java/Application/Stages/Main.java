@@ -1,8 +1,13 @@
 package Application.Stages;
 
 import Application.Classes.Async;
+import Application.Services.AlertService;
+import Application.Services.ApplicationService;
 import Application.Services.PropertiesService;
+import Database.Controllers.DatabaseController;
+import Database.Services.ConfigurationService;
 import Database.Services.SessionService;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -10,6 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import javafx.application.Application;
 import Application.Services.LanguageService;
+
+import java.net.UnknownHostException;
+import java.sql.SQLTransientConnectionException;
+import java.util.ResourceBundle;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,11 +31,17 @@ public class Main extends Application {
     /** Stage static */
     private static Stage stage;
 
+    /** Access to run stage */
+    private static Boolean canRun = false;
+
     /** Path to view of main stage */
     private static final String VIEW = "/Application/Resources/Views/MainView.fxml";
 
     /** Path to language of main stage */
     private static final String LANGUAGE = "Application/Resources/Languages/application";
+
+    /** Path to language of database stage */
+    private static final String LANGUAGE_DATABASE = "Database/Resources/Languages/database";
 
     /** Icon of stage */
     private static final String ICON = "/Application/Resources/Assets/Images/Icons/app.png";
@@ -39,11 +54,38 @@ public class Main extends Application {
      * @param stage main of application
      */
     public void start(Stage stage) {
+        ResourceBundle resourcesDatabase = LanguageService.getResourceBundle(LANGUAGE_DATABASE);
+
         new Async().run(()->{
+            if (! DatabaseController.chooseSource()){
+                ApplicationService.exit();
+            }
+            try {
+                ConfigurationService.checkConnectionRemote();
+            } catch (Exception e){
+                String contentAlert = "";
+                if (ConfigurationService.hasUnknownHostException(e)){
+                    contentAlert = resourcesDatabase.getString("alert.error_host");
+                } else {
+                    contentAlert = resourcesDatabase.getString("alert.error_connection_database");
+                }
+                AlertService.errorException(
+                        resourcesDatabase.getString("alert.closing_application"),
+                        resourcesDatabase.getString("alert.error_database"),
+                        contentAlert,
+                        e
+                );
+                ApplicationService.exit();
+            }
             SessionService.preload();
+
         },()->{
             createStage(stage);
         });
+    }
+
+    public static void setCanRun(Boolean canRun) {
+        Main.canRun = canRun;
     }
 
     /**
@@ -72,5 +114,13 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Stop stage
+     */
+    @Override
+    public void stop(){
+        ApplicationService.exit();
     }
 }

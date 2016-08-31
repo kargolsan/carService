@@ -1,0 +1,4 @@
+.hidden {
+ -fx-padding: -10000pt;
+ visibility: hidden ;
+}

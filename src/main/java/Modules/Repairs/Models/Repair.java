@@ -54,14 +54,12 @@ public class Repair {
 
     /** parts of repair */
     @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(
-            joinColumns=@JoinColumn(name="ID"))
+    @JoinColumn(name="PART_ID")
     private Set<Part> parts;
 
     /** services of repair */
     @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(
-            joinColumns=@JoinColumn(name="ID"))
+    @JoinColumn(name="SERVICE_ID")
     private Set<Service> services;
 
     public Long getId() {

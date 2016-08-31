@@ -14,13 +14,13 @@ import java.util.Date;
  * Time: 11:48
  */
 @Entity
-@Table(name = "SERVICES", uniqueConstraints = { @UniqueConstraint(columnNames = "ID") })
+@Table(name = "SERVICES", uniqueConstraints = { @UniqueConstraint(columnNames = "SERVICE_ID") })
 public class Service {
 
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(name = "ID")
+    @Column(name = "SERVICE_ID")
     private Long id;
 
     @Column(name = "NAME", length = 1000)

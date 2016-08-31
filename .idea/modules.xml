@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CarService.iml" filepath="$PROJECT_DIR$/.idea/modules/CarService.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CarService_main.iml" filepath="$PROJECT_DIR$/.idea/modules/CarService_main.iml" group="CarService" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CarService_test.iml" filepath="$PROJECT_DIR$/.idea/modules/CarService_test.iml" group="CarService" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ITGoloCarService.iml" filepath="$PROJECT_DIR$/.idea/modules/ITGoloCarService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ITGoloCarService_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ITGoloCarService_main.iml" group="ITGoloCarService" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ITGoloCarService_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ITGoloCarService_test.iml" group="ITGoloCarService" />
     </modules>
   </component>
 </project>

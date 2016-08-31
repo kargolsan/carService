@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<VBox id="root" fx:id="root" alignment="CENTER" spacing="10.0" stylesheets="/Database/Resources/Assets/Styles/Options/Client.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Database.Controllers.Options.ClientController">
+   <children>
+      <HBox alignment="CENTER">
+         <children>
+            <VBox>
+               <children>
+                  <Label text="%view.choose_source.label.ip_server" />
+                  <TextField fx:id="ip" prefWidth="200.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="root" fx:id="root" alignment="CENTER" spacing="10.0" stylesheets="/Database/Resources/Assets/Styles/Options/Local.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Database.Controllers.Options.LocalController">
+   <children>
+      <HBox alignment="CENTER">
+         <children>
+            <VBox>
+               <children>
+                  <Label text="%controllers.local.label.path_database" />
+                  <TextField fx:id="localization" editable="false" prefWidth="200.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
